@@ -1,0 +1,21 @@
+{
+  "team": "NguyenThanhDat_771",
+  "phase": "public",
+  "headline": 100.0,
+  "sub": {
+    "correct": 0.8167,
+    "quality": 0.8825,
+    "error": 1.0,
+    "latency": 0.4332,
+    "cost": 0.0,
+    "drift": 0.8619,
+    "prompt": 0.8936
+  },
+  "diag_f1": 0.952,
+  "n": 120,
+  "n_correct": 98,
+  "judge_mode": "offline",
+  "weights_hash": "e81a8ed58d93",
+  "key_hash": "9a800fa6968d",
+  "sig": "d30eefa9836272fb261bfeeb7212e653e631c02378af4d5a9a6ecd4345a8d79a"
+}

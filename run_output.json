@@ -1,0 +1,1484 @@
+{
+  "phase": "public",
+  "n": 120,
+  "users": null,
+  "turns": null,
+  "config_used": {
+    "provider": "openai",
+    "model": "gpt-5.4-nano",
+    "model_price_tier": "premium",
+    "max_steps": 12,
+    "loop_guard": true,
+    "temperature": 0.0,
+    "context_size": 8,
+    "verbose_system": true,
+    "retry": {
+      "enabled": true,
+      "max_attempts": 3,
+      "backoff_ms": 1000
+    },
+    "cache": {
+      "enabled": true
+    },
+    "normalize_unicode": true,
+    "redact_pii": true,
+    "session_drift_rate": 0.06,
+    "context_reset_every": 0,
+    "tool_error_rate": 0.18,
+    "catalog_override": {},
+    "planner": false,
+    "verify": false,
+    "self_consistency": 1,
+    "tool_budget": 4,
+    "prompt_chars": 1153,
+    "custom_prompt": true
+  },
+  "results": [
+    {
+      "qid": "pub-001",
+      "question": "Mua 4 AirPods dung ma EXPIRED giao den Da Nang tinh tong tien giup minh.",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy mình **không thể tính tổng tiền** cho đơn mua 4 chiếc được.\n\nNgoài ra mã **EXPIRED** có vẻ là mã đã hết hạn; tuy nhiên theo quy tắc, vì sản phẩm đã hết hàng nên mình **không tính tổng** và **không áp dụng giảm giá/ship** cho đơn này.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-001",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.107783Z"
+    },
+    {
+      "qid": "pub-002",
+      "question": "Mua 5 AirPods voi coupon SALE15 - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì sản phẩm không sẵn có nên mình **không thể tính tổng tiền** cho đơn mua 5 chiếc (kể cả có coupon **SALE15**).\n\nVui lòng chọn sản phẩm khác còn hàng hoặc kiểm tra lại khi AirPods có lại nhé.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-002",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.109828Z"
+    },
+    {
+      "qid": "pub-003",
+      "question": "Mua 3 MacBook voi coupon VIP20, ship Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống (giá/khả dụng, % giảm giá, phí ship), không lấy theo thông tin bạn tự nêu.\n\n1) Kiểm tra hàng: **MacBook**\n- Có hàng: **đủ 3 chiếc** (tồn kho 4)\n- **Đơn giá**: 35,000,000 VND/1\n\n2) Tính **subtotal** (chưa giảm giá)\n- subtotal = unit_price * qty  \n- subtotal = 35,000,000 * 3 = **105,000,000 VND**\n\n3) Áp dụng coupon **VIP20**\n- Coupon hợp lệ, giảm **20%**\n- discounted = subtotal * (100 - pct) // 100  \n- discounted = 105,000,000 * (100 - 20) // 100  \n- discounted = 105,000,000 * 80 // 100 = **84,000,000 VND**\n\n4) Tính phí ship đến **Hải Phòng**\n- Khối lượng mỗi MacBook: 1.6 kg\n- Tổng weight = 1.6 * 3 = **4.8 kg**\n- shipping_fee = **47,000 VND**\n\n5) Tổng tiền\n- total = discounted + shipping_fee  \n- total = 84,000,000 + 47,000 = **84,047,000 VND**\n\nTong cong: 84047000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-003",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.458658Z"
+    },
+    {
+      "qid": "pub-004",
+      "question": "Mua 5 iPad giao Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp: mua **5 iPad**, giao **Ha Noi**.\n\n**Bước 1: Kiểm tra tồn kho iPad**\n- iPad: **còn hàng**\n- Đơn giá: **18,000,000 VND / 1 iPad**\n- Số lượng bạn đặt: **5**\n\n**Bước 2: Tính subtotal (chưa gồm ship)**\n- subtotal = unit_price * qty  \n- subtotal = 18,000,000 * 5 = **90,000,000 VND**\n\n**Bước 3: Giảm giá**\n- Bạn không cung cấp mã coupon, nên **không áp dụng giảm giá** (pct = 0%).\n- discounted = subtotal * (100 - pct) // 100  \n- discounted = 90,000,000 * (100 - 0) // 100 = **90,000,000 VND**\n\n**Bước 4: Tính phí vận chuyển**\n- Khối lượng mỗi iPad: **0.45 kg**\n- Tổng khối lượng = 0.45 * 5 = **2.25 kg**\n- Ship Ha Noi (theo trọng lượng 2.25 kg): **36,250 VND**\n\n**Bước 5: Tính tổng cuối cùng**\n- total = discounted + shipping_fee  \n- total = 90,000,000 + 36,250 = **90,036,250 VND**\n\nTong cong: 90036250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-004",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.529604Z"
+    },
+    {
+      "qid": "pub-005",
+      "question": "Mua 5 iPad, ship Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin có sẵn từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng (đủ để mua 5 cái)  \n- Đơn giá: 18,000,000 VND/cái  \n- Số lượng bạn đặt: 5\n\n2) Tính subtotal (chưa gồm ship)  \n- subtotal = unit_price * qty  \n- subtotal = 18,000,000 * 5 = 90,000,000 VND\n\n3) Tính phí ship về Hà Nội  \n- Khối lượng mỗi iPad: 0.45 kg  \n- Tổng khối lượng = 0.45 * 5 = 2.25 kg  \n- Phí ship Hà Nội (cho 2.25 kg): 36,250 VND\n\n4) Tổng tiền phải thanh toán  \n- Không có mã giảm giá được cung cấp, nên discounted = subtotal  \n- total = discounted + shipping_fee  \n- total = 90,000,000 + 36,250 = 90,036,250 VND\n\nTong cong: 90036250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-005",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.621508Z"
+    },
+    {
+      "qid": "pub-006",
+      "question": "Mua 5 iPad ap dung ma WINNER giao den Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 5 iPad, áp dụng mã WINNER, giao Hà Nội).\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng, đủ để mua 5 cái  \n- Đơn giá iPad: 18,000,000 VND/cái\n\n2) Áp dụng mã giảm giá WINNER  \n- WINNER hợp lệ: giảm 10%\n\n3) Tính phí vận chuyển đến Hà Nội  \n- Khối lượng mỗi iPad: 0.45 kg  \n- Tổng khối lượng: 5 × 0.45 = 2.25 kg  \n- Phí ship Hà Nội (cho 2.25 kg): 36,250 VND\n\n4) Tính tiền  \n- Subtotal = unit_price × qty = 18,000,000 × 5 = 90,000,000 VND  \n- Discounted = subtotal × (100 - pct) // 100  \n  = 90,000,000 × (100 - 10) // 100  \n  = 90,000,000 × 90 // 100  \n  = 81,000,000 VND  \n- Total = discounted + shipping_fee = 81,000,000 + 36,250 = 81,036,250 VND\n\nTong cong: 81036250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-006",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.664558Z"
+    },
+    {
+      "qid": "pub-007",
+      "question": "Mua 4 iPhone giao Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp: mua **4 iPhone** và giao **Hai Phong**.\n\n**Bước 1: Kiểm tra tồn kho & giá**\n- iPhone: **còn hàng**\n- Đơn giá: **22,000,000 VND / 1 sản phẩm**\n- Số lượng bạn đặt: **4**\n\n**Bước 2: Tính subtotal (chưa giảm giá, chưa ship)**\n- subtotal = unit_price * qty  \n= 22,000,000 * 4  \n= **88,000,000 VND**\n\n**Bước 3: Giảm giá**\n- Bạn không cung cấp mã coupon, nên **không có giảm giá**.\n- discounted = subtotal (vì không áp dụng % giảm)\n\n**Bước 4: Tính phí vận chuyển**\n- Khối lượng mỗi iPhone: **0.5 kg**\n- Tổng khối lượng = 0.5 * 4 = **2.0 kg**\n- Giao Hai Phong: phí ship = **33,000 VND**\n\n**Bước 5: Tính tổng tiền**\n- total = discounted + shipping_fee  \n= 88,000,000 + 33,000  \n= **88,033,000 VND**\n\nTong cong: 88033000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-007",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.831504Z"
+    },
+    {
+      "qid": "pub-008",
+      "question": "Mua 4 MacBook ap dung ma EXPIRED giao den Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra hàng (check_stock)\n- Mặt hàng: MacBook\n- Có sẵn: đúng (in_stock = true)\n- Số lượng bạn đặt: 4 (hệ thống cho biết đủ 4)\n- Đơn giá: 35,000,000 VND / 1\n\n2) Áp mã giảm giá\n- Mã: EXPIRED\n- Kết quả: mã không hợp lệ/đã hết hạn (valid = false) ⇒ giảm 0%\n- Vì giảm 0% nên tiền sau giảm = tiền trước giảm.\n\n3) Tính phí vận chuyển\n- Khối lượng mỗi MacBook: 1.6 kg\n- Tổng khối lượng: 1.6 * 4 = 6.4 kg\n- Điểm đến: Da Nang\n- Phí vận chuyển: 62,000 VND\n\n4) Tính tiền (theo công thức yêu cầu)\n- subtotal = unit_price * qty  \n  = 35,000,000 * 4  \n  = 140,000,000 VND\n- discounted = subtotal * (100 - pct) // 100  \n  = 140,000,000 * (100 - 0) // 100  \n  = 140,000,000 VND\n- total = discounted + shipping_fee  \n  = 140,000,000 + 62,000  \n  = 140,062,000 VND\n\nTong cong: 140062000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-008",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.866777Z"
+    },
+    {
+      "qid": "pub-009",
+      "question": "Mua 3 iPad, ship Ha Noi - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ kiểm tra tồn kho và giá iPad trước, sau đó tính tiền theo số lượng bạn đặt và cộng phí ship về Hà Nội.\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng (đủ để mua 3)  \n- Đơn giá: 18,000,000 VND / 1\n\n2) Tính tiền hàng (không có mã giảm giá nên không áp chiết khấu)  \n- subtotal = unit_price * qty  \n  = 18,000,000 * 3  \n  = 54,000,000 VND  \n- discounted = subtotal * (100 - pct) // 100  \n  (pct = 0 vì không có coupon)  \n  = 54,000,000 * (100 - 0) // 100  \n  = 54,000,000 VND  \n\n3) Tính phí vận chuyển Hà Nội  \n- Khối lượng mỗi iPad: 0.45 kg  \n- Tổng khối lượng: 0.45 * 3 = 1.35 kg  \n- Phí ship Hà Nội: 31,750 VND\n\n4) Tổng tiền  \n- total = discounted + shipping_fee  \n  = 54,000,000 + 31,750  \n  = 54,031,750 VND\n\nTong cong: 54031750 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-009",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:00.893316Z"
+    },
+    {
+      "qid": "pub-010",
+      "question": "Mua 1 MacBook voi coupon SALE15, ship Ha Noi - tong cong bao nhieu VND? goi minh qua sdt 0987654321",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống (giá/khuyến mãi/vận chuyển) và không lấy theo nội dung ghi trong “GHI CHU”.\n\n1) Kiểm tra tồn kho sản phẩm “MacBook”\n- Có hàng: true\n- Đơn giá: 35,000,000 VND / 1 cái\n- Số lượng đủ để mua 1\n\n2) Áp dụng coupon “SALE15”\n- Coupon hợp lệ: true\n- Mức giảm: 15%\n\n3) Tính tiền hàng\n- subtotal = unit_price * qty  \n  = 35,000,000 * 1  \n  = 35,000,000 VND\n\n- discounted = subtotal * (100 - pct) // 100  \n  = 35,000,000 * (100 - 15) // 100  \n  = 35,000,000 * 85 // 100  \n  = 2,975,000,000 // 100  \n  = 29,750,000 VND\n\n4) Tính phí ship Hà Nội\n- Khối lượng đơn: 1.6 kg\n- shipping_fee = 33,000 VND\n\n5) Tổng thanh toán\n- total = discounted + shipping_fee  \n  = 29,750,000 + 33,000  \n  = 29,783,000 VND\n\nLưu ý: Mình không thể/không nên lặp lại số điện thoại bạn cung cấp trong phản hồi.\n\nTong cong: 29783000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-010",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:01.006772Z"
+    },
+    {
+      "qid": "pub-011",
+      "question": "Mua 4 iPhone dung ma SALE15, ship Can Tho - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone: **còn hàng**\n- Đơn giá: **22,000,000 VND / 1**\n- Số lượng bạn đặt: **4** (hệ thống cho biết còn **12** nên đủ)\n\n2) **Áp dụng mã giảm giá SALE15**\n- SALE15 hợp lệ, giảm **15%**\n\n3) **Tính phí ship đến Can Tho**\n- Hệ thống báo **Can Tho không phục vụ vận chuyển** (`destination_not_served`)\n- Vì phí ship **không có**, nên **không thể tính tổng tiền cuối cùng** theo yêu cầu.\n\n➡️ **Kết luận:** Không thể xuất “tổng cộng” vì **không tính được phí vận chuyển đến Can Tho**.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-011",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:01.171915Z"
+    },
+    {
+      "qid": "pub-012",
+      "question": "Mua 2 iPad ap dung ma EXPIRED, ship Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng, giá 1 cái = **18,000,000 VND**  \n- Số lượng bạn mua: **2** (đủ hàng)\n\n2) Áp dụng mã giảm giá **EXPIRED**  \n- Mã **EXPIRED** không hợp lệ/đã hết hạn ⇒ **percent = 0%**\n\n3) Tính phí ship đến **Hải Phòng**  \n- Khối lượng mỗi iPad: **0.45 kg**  \n- Tổng khối lượng: 2 × 0.45 = **0.9 kg**  \n- Phí ship Hải Phòng cho 0.9 kg: **28,000 VND**\n\n4) Tính tiền  \n- subtotal = unit_price × qty = 18,000,000 × 2 = **36,000,000 VND**  \n- discounted = subtotal × (100 - pct) // 100  \n  = 36,000,000 × (100 - 0) // 100 = **36,000,000 VND**  \n- total = discounted + shipping_fee = 36,000,000 + 28,000 = **36,028,000 VND**\n\nTong cong: 36028000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-012",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:01.210231Z"
+    },
+    {
+      "qid": "pub-013",
+      "question": "Mua 2 iPhone giao den TP HCM tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền cho đơn của bạn theo đúng thông tin có sẵn từ hệ thống:\n\n1) Kiểm tra tồn kho sản phẩm “iPhone”\n- Còn hàng: Có\n- Giá 1 chiếc: 22.000.000 VND\n- Số lượng bạn đặt: 2 chiếc\n- Tổng tiền trước giảm giá (subtotal) = unit_price * qty  \n  = 22.000.000 * 2 = 44.000.000 VND\n\n2) Giảm giá\n- Bạn không cung cấp mã coupon, nên không áp dụng giảm giá.\n- discounted = subtotal (vì không có % giảm)\n\n3) Tính phí vận chuyển đến TP HCM\n- Khối lượng mỗi iPhone: 0,5 kg\n- Tổng khối lượng = 0,5 * 2 = 1,0 kg\n- Phí ship TP HCM cho 1,0 kg: 25.000 VND\n\n4) Tổng tiền phải thanh toán\n- total = discounted + shipping_fee  \n  = 44.000.000 + 25.000 = 44.025.000 VND\n\nTong cong: 44025000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-013",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:01.371369Z"
+    },
+    {
+      "qid": "pub-014",
+      "question": "Mua 5 iPad, ship Ha Noi tinh tong tien giup minh. lien he email quan.le@icloud.com",
+      "answer": [
+        "Mình sẽ tính tổng tiền cho đơn **mua 5 iPad** và **giao Ha Noi** theo đúng dữ liệu giá/khả dụng từ hệ thống.\n\n1) **Kiểm tra tồn kho iPad**\n- iPad: **còn hàng**\n- Số lượng đủ để mua: **7 chiếc** (bạn cần 5)\n- **Đơn giá iPad:** 18,000,000 VND/chiếc\n- **Khối lượng mỗi iPad:** 0.45 kg\n\n2) **Tính subtotal (chưa giảm giá, chưa ship)**\n- subtotal = unit_price * qty  \n= 18,000,000 * 5  \n= **90,000,000 VND**\n\n3) **Giảm giá**\n- Bạn không cung cấp mã coupon, nên **không áp dụng giảm giá**  \n=> discounted = subtotal = **90,000,000 VND**\n\n4) **Tính phí ship về Ha Noi**\n- Tổng khối lượng = 0.45 * 5 = **2.25 kg**\n- Phí vận chuyển Ha Noi (cho 2.25 kg): **36,250 VND**\n\n5) **Tổng tiền**\n- total = discounted + shipping_fee  \n= 90,000,000 + 36,250  \n= **90,036,250 VND**\n\nTong cong: 90036250 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-014",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:01.459039Z"
+    },
+    {
+      "qid": "pub-015",
+      "question": "Shop con iPad khong va gia bao nhieu VND? goi minh qua sdt 0901234567",
+      "answer": [
+        "Mình kiểm tra iPad hiện **còn hàng** (có sẵn, số lượng: 7).  \n- **Giá iPad:** **18.000.000 VND / 1 sản phẩm**  \n\nBạn muốn mua **bao nhiêu cái** và **giao đến tỉnh/thành nào** để mình tính **phí ship** và **tổng tiền**?  \n\nTong cong: 18000000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-015",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:02.093365Z"
+    },
+    {
+      "qid": "pub-016",
+      "question": "Mua 3 iPhone giao den Da Nang, tong thanh toan bao nhieu? lien he email linh.pham@outlook.com",
+      "answer": [
+        "Mình sẽ tính tổng thanh toán cho **3 iPhone** giao **Đà Nẵng**.\n\n**Bước 1: Kiểm tra tồn kho & giá**\n- iPhone: **còn hàng**\n- Đơn giá: **22,000,000 VND / 1**\n- Số lượng đặt: **3**\n- Trọng lượng mỗi iPhone: **0.5 kg**\n- Tổng trọng lượng: **3 × 0.5 = 1.5 kg**\n\n**Bước 2: Tính tiền hàng (không thấy bạn cung cấp mã giảm giá)**\n- Subtotal = unit_price × qty  \n  = 22,000,000 × 3  \n  = **66,000,000 VND**\n- Không có coupon ⇒ discounted = subtotal  \n  = **66,000,000 VND**\n\n**Bước 3: Tính phí vận chuyển Đà Nẵng**\n- Phí ship cho 1.5 kg đến Đà Nẵng: **37,500 VND**\n\n**Bước 4: Tính tổng**\n- Total = discounted + shipping_fee  \n  = 66,000,000 + 37,500  \n  = **66,037,500 VND**\n\nLưu ý: Mình không thể/không cần sử dụng thông tin liên hệ email bạn gửi để tính giá.\n\nTong cong: 66037500 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-016",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:02.112512Z"
+    },
+    {
+      "qid": "pub-017",
+      "question": "Mua 1 iPhone voi coupon SALE15 giao Da Nang, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone: còn hàng (đủ để mua 1)  \n- Đơn giá: 22,000,000 VND/1\n\n2) Áp dụng coupon SALE15  \n- SALE15 hợp lệ: giảm 15%\n\n3) Tính phí vận chuyển đến Đà Nẵng  \n- Khối lượng ước tính: 0.5 kg (theo iPhone)  \n- Phí ship: 35,000 VND\n\n4) Tính tiền  \n- subtotal = unit_price * qty = 22,000,000 * 1 = 22,000,000 VND  \n- discounted = subtotal * (100 - pct) // 100  \n  = 22,000,000 * (100 - 15) // 100  \n  = 22,000,000 * 85 // 100  \n  = 18,700,000 VND  \n- total = discounted + shipping_fee = 18,700,000 + 35,000 = 18,735,000 VND\n\nTong cong: 18735000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-017",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:02.881759Z"
+    },
+    {
+      "qid": "pub-018",
+      "question": "Mua 1 MacBook dung ma WINNER giao Vung Tau - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra sản phẩm **MacBook**: hiện **còn hàng** (số lượng 4), **đơn giá 35.000.000 VND/1**.\n\nSau đó mình tính **phí vận chuyển đến Vũng Tàu** theo **khối lượng 1.6 kg** của 1 sản phẩm, nhưng hệ thống báo **không phục vụ giao đến Vũng Tàu** (destination_not_served). Vì vậy **không thể tính tổng tiền cuối cùng**.\n\nVui lòng cho mình đổi **địa điểm giao** sang nơi được hỗ trợ, hoặc cho biết bạn muốn nhận ở khu vực khác để mình tính tiếp.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-018",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:02.988005Z"
+    },
+    {
+      "qid": "pub-019",
+      "question": "Mua 1 AirPods ap dung ma WINNER giao Ha Noi, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy không thể tính tổng thanh toán cho đơn này (không thể áp mã **WINNER** hay tính phí giao **Hà Nội** khi sản phẩm không mua được).\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-019",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.128215Z"
+    },
+    {
+      "qid": "pub-020",
+      "question": "Mua 5 iPhone ap dung ma WINNER, ship hà nội, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone **còn hàng**\n- **Đơn giá:** 22,000,000 VND / 1\n- **Số lượng bạn đặt:** 5 (≤ 12 nên mua được)\n- **Khối lượng mỗi iPhone:** 0.5 kg  \n→ **Tổng khối lượng:** 5 × 0.5 = **2.5 kg**\n\n2) **Áp dụng mã giảm giá WINNER**\n- WINNER hợp lệ\n- **Giảm:** 10%\n\n3) **Tính tiền**\n- **Subtotal (chưa giảm):** 22,000,000 × 5 = **110,000,000 VND**\n- **Giảm giá:** 110,000,000 × (100 - 10) // 100  \n  = 110,000,000 × 90 // 100  \n  = **99,000,000 VND** (đây là phần sau giảm)\n- **Phí ship Hà Nội:** 37,500 VND\n\n4) **Tổng thanh toán**\n- **Total:** 99,000,000 + 37,500 = **99,037,500 VND**\n\nTong cong: 99037500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-020",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.160283Z"
+    },
+    {
+      "qid": "pub-021",
+      "question": "Mua 1 iPad dung ma WINNER giao den đà nẵng, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng thanh toán theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad\n- iPad: còn hàng (số lượng đủ để mua 1)\n- Đơn giá: 18.000.000 VND / 1\n\n2) Áp dụng mã giảm giá WINNER\n- WINNER hợp lệ: giảm 10%\n\n3) Tính phí vận chuyển Đà Nẵng\n- Khối lượng iPad: 0,45 kg\n- Phí ship Đà Nẵng: 35.000 VND\n\n4) Tính tiền\n- subtotal = unit_price * qty = 18.000.000 * 1 = 18.000.000 VND\n- discounted = subtotal * (100 - pct) // 100  \n  = 18.000.000 * (100 - 10) // 100  \n  = 18.000.000 * 90 // 100  \n  = 16.200.000 VND\n- total = discounted + shipping_fee = 16.200.000 + 35.000 = 16.235.000 VND\n\nTong cong: 16235000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-021",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.414140Z"
+    },
+    {
+      "qid": "pub-022",
+      "question": "Mua 2 AirPods ap dung ma WINNER, ship Ha Noi - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy không thể tạo đơn để tính **giá, giảm giá WINNER, và phí ship Hà Nội**.\n\nKhông thể tính tổng tiền trong trường hợp này.  \nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-022",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.456277Z"
+    },
+    {
+      "qid": "pub-023",
+      "question": "Mua 5 iPhone voi coupon WINNER giao den TP HCM - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone **còn hàng**\n- **Đơn giá:** 22.000.000 VND / 1\n- **Số lượng bạn đặt:** 5  \n- **Trọng lượng mỗi iPhone:** 0,5 kg  \n→ **Tổng trọng lượng:** 5 × 0,5 = **2,5 kg**\n\n2) **Áp mã giảm giá WINNER**\n- Mã **hợp lệ**\n- **Giảm:** 10%\n\n3) **Tính phí vận chuyển đến TP HCM**\n- Với **2,5 kg** → **phí ship:** **32.500 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 22.000.000 × 5 = **110.000.000 VND**\n- **Discounted** = Subtotal × (100 - pct) // 100  \n  = 110.000.000 × (100 - 10) // 100  \n  = 110.000.000 × 90 // 100  \n  = **99.000.000 VND**\n- **Total** = discounted + shipping_fee  \n  = 99.000.000 + 32.500 = **99.032.500 VND**\n\nTong cong: 99032500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-023",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.539853Z"
+    },
+    {
+      "qid": "pub-024",
+      "question": "Mua 2 MacBook ap dung ma EXPIRED giao den Ha Noi - tong cong bao nhieu VND? goi minh qua sdt 0987654321",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng thông tin bạn cung cấp (2 MacBook, mã “EXPIRED”, giao Hà Nội).\n\n1) Kiểm tra tồn kho (MacBook)\n- Có hàng: ✅\n- Giá 1 sản phẩm: 35.000.000 VND\n- Số lượng đủ để mua: ✅ (có 4 cái, bạn mua 2)\n\n2) Kiểm tra mã giảm giá “EXPIRED”\n- Mã không hợp lệ/đã hết hạn: ❌\n- Phần trăm giảm: 0%\n\n3) Tính phí vận chuyển đến Hà Nội\n- Khối lượng mỗi MacBook: 1,6 kg\n- Tổng khối lượng: 2 × 1,6 = 3,2 kg\n- Phí ship Hà Nội: 41.000 VND\n\n4) Tính tiền\n- subtotal = unit_price × qty = 35.000.000 × 2 = 70.000.000 VND\n- discounted = subtotal × (100 - pct) // 100  \n  = 70.000.000 × (100 - 0) // 100  \n  = 70.000.000 VND\n- total = discounted + shipping_fee = 70.000.000 + 41.000 = 70.041.000 VND\n\nTong cong: 70041000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-024",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.544614Z"
+    },
+    {
+      "qid": "pub-025",
+      "question": "Shop con MacBook khong va gia bao nhieu VND? goi minh qua sdt 0901234567",
+      "answer": [
+        "Mình kiểm tra thì **MacBook hiện còn hàng** (có **4** chiếc).\n\n- **Giá hiện tại:** **35,000,000 VND / 1 máy**\n\nBạn muốn mua **bao nhiêu** chiếc và **giao đến tỉnh/thành nào** để mình tính **phí ship** và **tổng tiền** chính xác?  \n\nTong cong: 35000000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-025",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:03.627571Z"
+    },
+    {
+      "qid": "pub-026",
+      "question": "Mua 3 iPhone voi coupon SALE15, ship Ha Noi, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone **còn hàng**\n- **Đơn giá:** 22,000,000 VND / 1\n- **Số lượng bạn mua:** 3\n- **Trọng lượng mỗi iPhone:** 0.5 kg ⇒ tổng trọng lượng = 0.5 × 3 = **1.5 kg**\n\n2) **Áp dụng coupon SALE15**\n- Coupon **hợp lệ**\n- **Giảm:** 15%\n\n3) **Tính phí ship về Hà Nội**\n- Điểm đến: **Ha Noi**\n- Trọng lượng: **1.5 kg**\n- **Phí ship:** 32,500 VND\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 22,000,000 × 3 = **66,000,000 VND**\n- **Discounted** = subtotal × (100 - pct) // 100  \n  = 66,000,000 × (100 - 15) // 100  \n  = 66,000,000 × 85 // 100  \n  = 5,610,000,000 // 100  \n  = **56,100,000 VND**\n- **Total** = discounted + shipping_fee  \n  = 56,100,000 + 32,500 = **56,132,500 VND**\n\nTong cong: 56132500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-026",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:04.312766Z"
+    },
+    {
+      "qid": "pub-027",
+      "question": "Shop con iPhone khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **iPhone hiện có hàng** (còn **12** chiếc).\n\n- **Giá mỗi iPhone:** **22.000.000 VND**\n\nBạn muốn mua **bao nhiêu chiếc** và **giao đến tỉnh/thành nào** để mình tính **tổng tiền (kèm phí ship)**?  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-027",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:05.083502Z"
+    },
+    {
+      "qid": "pub-028",
+      "question": "Mua 5 iPhone ap dung ma SALE15 giao Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 5 iPhone, áp dụng mã SALE15, giao Hai Phong).\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone: còn hàng  \n- Đơn giá: 22.000.000 VND / sản phẩm  \n- Số lượng bạn mua: 5 (đủ điều kiện)\n\n2) Áp dụng mã giảm giá SALE15  \n- SALE15 hợp lệ, giảm 15%\n\n3) Tính tiền hàng  \n- subtotal = unit_price * qty  \n= 22.000.000 * 5  \n= 110.000.000 VND\n\n- discounted = subtotal * (100 - pct) // 100  \n= 110.000.000 * (100 - 15) // 100  \n= 110.000.000 * 85 // 100  \n= [REDACTED:IP] // 100  \n= 93.500.000 VND\n\n4) Tính phí vận chuyển  \n- Khối lượng mỗi iPhone: 0,5 kg  \n- Tổng khối lượng: 5 * 0,5 = 2,5 kg  \n- Giao Hai Phong: phí vận chuyển = 35.500 VND\n\n5) Tổng tiền phải thanh toán  \n- total = discounted + shipping_fee  \n= 93.500.000 + 35.500  \n= 93.535.500 VND\n\nTong cong: 93535500 VND",
+        1
+      ],
+      "status": "ok",
+      "session": "pub-028",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:05.356432Z"
+    },
+    {
+      "qid": "pub-029",
+      "question": "Mua 5 MacBook dung ma WINNER giao den hà nội, tong thanh toan bao nhieu? lien he email an.nguyen@gmail.com",
+      "answer": [
+        "Mình sẽ kiểm tra tồn kho và tính tổng theo đúng số lượng bạn yêu cầu.\n\n1) **Kiểm tra tồn kho (MacBook)**\n- Có hàng: **in_stock = true**\n- Giá 1 sản phẩm: **35.000.000 VND**\n- Tồn kho hiện có: **4 cái**\n- Bạn đặt: **5 cái** → **vượt quá số lượng còn lại (4 cái)**\n\nVì vậy **không thể đặt mua đủ 5 MacBook** theo yêu cầu hiện tại. Theo quy tắc tính toán, khi đơn không hợp lệ do thiếu hàng thì **không tính tổng thanh toán**.\n\nBạn có thể:\n- Giảm số lượng xuống **tối đa 4 cái**, hoặc\n- Chọn sản phẩm khác / kiểm tra lại thời điểm có hàng.\n\n**Tong cong: 0 VND** (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-029",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:05.357125Z"
+    },
+    {
+      "qid": "pub-030",
+      "question": "Shop con iPad khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **iPad hiện đang còn hàng** ✅  \n- **Tình trạng:** còn hàng  \n- **Số lượng:** 7  \n- **Giá mỗi iPad:** **18.000.000 VND**\n\nBạn muốn mua **bao nhiêu cái** và **giao đến tỉnh/thành nào** để mình tính tổng (có phí ship) cho bạn?  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-030",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:05.920603Z"
+    },
+    {
+      "qid": "pub-031",
+      "question": "Mua 3 iPad voi coupon SALE15 giao den Hai Phong - tong cong bao nhieu VND? goi minh qua sdt 0912345678",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng thông tin bạn cung cấp (3 iPad, dùng coupon **SALE15**, giao **Hai Phong**).\n\n**Bước 1: Kiểm tra tồn kho iPad**\n- iPad còn hàng: **có**\n- Đơn giá: **18,000,000 VND / 1**\n- Số lượng bạn đặt: **3** (đủ hàng)\n\n**Bước 2: Tính tiền trước giảm giá (subtotal)**\n- subtotal = unit_price * qty  \n- subtotal = 18,000,000 * 3 = **54,000,000 VND**\n\n**Bước 3: Áp dụng coupon SALE15**\n- SALE15 hợp lệ, giảm **15%**\n- discounted = subtotal * (100 - pct) // 100  \n- discounted = 54,000,000 * (100 - 15) // 100  \n- discounted = 54,000,000 * 85 // 100  \n- discounted = 4,590,000,000 // 100 = **45,900,000 VND**\n\n**Bước 4: Tính phí ship đến Hải Phòng**\n- Khối lượng mỗi iPad: **0.45 kg**\n- Tổng khối lượng = 0.45 * 3 = **1.35 kg**\n- Phí ship Hai Phong (cho 1.35 kg): **29,750 VND**\n\n**Bước 5: Tính tổng thanh toán**\n- total = discounted + shipping_fee  \n- total = 45,900,000 + 29,750 = **45,929,750 VND**\n\nTong cong: 45929750 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-031",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:06.329831Z"
+    },
+    {
+      "qid": "pub-032",
+      "question": "Shop con iPhone khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **iPhone hiện có hàng** ✅  \n- **Giá mỗi iPhone:** **22.000.000 VND**  \n- **Số lượng còn lại:** 12\n\nNếu bạn cho mình biết **bạn muốn mua bao nhiêu chiếc** và **giao đến tỉnh/thành nào**, mình sẽ tính giúp **tổng tiền (kèm phí ship)**.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-032",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:06.624493Z"
+    },
+    {
+      "qid": "pub-033",
+      "question": "Mua 1 MacBook dung ma SALE15, ship Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho (check_stock)**  \n- Sản phẩm: **MacBook**  \n- Có hàng: **in_stock = true** (số lượng còn: 4)  \n- **Đơn giá**: **35,000,000 VND**  \n- **Khối lượng**: **1.6 kg**  \n\n2) **Áp mã giảm giá (get_discount)**  \n- Mã: **SALE15**  \n- Hợp lệ: **valid = true**  \n- **Giảm: 15%**\n\n3) **Tính phí vận chuyển (calc_shipping)**  \n- Điểm đến: **Hai Phòng**  \n- Khối lượng: **1.6 kg**  \n- **Phí ship**: **31,000 VND**\n\n4) **Tính tiền (theo công thức yêu cầu)**  \n- **subtotal** = unit_price * qty = 35,000,000 * 1 = **35,000,000 VND**  \n- **discounted** = subtotal * (100 - pct) // 100  \n  = 35,000,000 * (100 - 15) // 100  \n  = 35,000,000 * 85 // 100  \n  = 2,975,000,000 // 100  \n  = **29,750,000 VND**  \n- **total** = discounted + shipping_fee  \n  = 29,750,000 + 31,000  \n  = **29,781,000 VND**\n\nTong cong: 29781000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-033",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:06.663908Z"
+    },
+    {
+      "qid": "pub-034",
+      "question": "Mua 1 iPad giao TP HCM tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền cho đơn của bạn theo đúng thông tin có sẵn từ hệ thống:\n\n1) Kiểm tra hàng (check_stock)\n- Sản phẩm: iPad\n- Tình trạng: Còn hàng\n- Đơn giá: 18.000.000 VND / 1\n- Số lượng bạn đặt: 1\n- Khối lượng ước tính: 0,45 kg\n\n2) Tính phí vận chuyển (calc_shipping) đến TP HCM\n- Điểm đến: TP HCM\n- Khối lượng: 0,45 kg\n- Phí vận chuyển: 25.000 VND\n\n3) Tính tiền hàng\n- subtotal = unit_price * qty = 18.000.000 * 1 = 18.000.000 VND\n- Không có mã giảm giá được cung cấp ⇒ discounted = subtotal = 18.000.000 VND\n- total = discounted + shipping_fee = 18.000.000 + 25.000 = 18.025.000 VND\n\nTong cong: 18025000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-034",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:06.684870Z"
+    },
+    {
+      "qid": "pub-035",
+      "question": "Mua 3 iPad dung ma EXPIRED giao TP HCM - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu hệ thống (giá/khả dụng chỉ lấy từ kho).\n\n1) Kiểm tra iPad\n- iPad: còn hàng\n- Đơn giá: 18,000,000 VND / 1\n- Số lượng bạn đặt: 3\n- Tổng trọng lượng: 0.45 kg * 3 = 1.35 kg\n\n2) Mã giảm giá “EXPIRED”\n- Mã “EXPIRED” không hợp lệ/đã hết hạn ⇒ phần trăm giảm = 0%\n\n3) Tính tiền hàng\n- subtotal = unit_price * qty = 18,000,000 * 3 = 54,000,000 VND\n- discounted = subtotal * (100 - pct) // 100\n  = 54,000,000 * (100 - 0) // 100\n  = 54,000,000 VND\n\n4) Phí vận chuyển đến TP HCM\n- shipping_fee = 26,750 VND\n\n5) Tổng cộng\n- total = discounted + shipping_fee\n  = 54,000,000 + 26,750\n  = 54,026,750 VND\n\nTong cong: 54026750 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-035",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:06.791939Z"
+    },
+    {
+      "qid": "pub-036",
+      "question": "Mua 2 MacBook voi coupon EXPIRED giao Da Nang, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho mặt hàng **MacBook**  \n- Có hàng: **in_stock = true**  \n- **Đơn giá**: 35,000,000 VND / 1 chiếc  \n- Số lượng đủ để mua 2 chiếc (tồn kho 4)\n\n2) Coupon **EXPIRED**  \n- Coupon **không hợp lệ/đã hết hạn** ⇒ **percent = 0%**  \n- Vì vậy **không được giảm giá**.\n\n3) Tính phí vận chuyển giao **Da Nang**  \n- Khối lượng mỗi MacBook: **1.6 kg**  \n- Mua **2** chiếc ⇒ tổng khối lượng = **1.6 * 2 = 3.2 kg**  \n- Phí ship Da Nang cho 3.2 kg: **46,000 VND**\n\n4) Tính tiền (theo công thức yêu cầu)\n- subtotal = unit_price * qty  \n  = 35,000,000 * 2 = **70,000,000 VND**\n- discounted = subtotal * (100 - pct) // 100  \n  = 70,000,000 * (100 - 0) // 100  \n  = 70,000,000 * 100 // 100  \n  = **70,000,000 VND**\n- total = discounted + shipping_fee  \n  = 70,000,000 + 46,000  \n  = **70,046,000 VND**\n\nTong cong: 70046000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-036",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:07.225438Z"
+    },
+    {
+      "qid": "pub-037",
+      "question": "Mua 5 iPad ap dung ma VIP20, ship Ha Noi, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad\n- iPad còn hàng: có (đủ để mua 5)\n- Đơn giá: 18,000,000 VND / 1\n\n2) Tính tiền hàng (chưa giảm giá)\n- Số lượng: 5\n- subtotal = unit_price * qty = 18,000,000 * 5 = 90,000,000 VND\n\n3) Áp dụng mã giảm giá VIP20\n- VIP20 hợp lệ, giảm 20%\n- discounted = subtotal * (100 - pct) // 100  \n= 90,000,000 * (100 - 20) // 100  \n= 90,000,000 * 80 // 100  \n= 72,000,000 VND\n\n4) Tính phí ship Hà Nội\n- Khối lượng mỗi iPad: 0.45 kg\n- Tổng khối lượng = 0.45 * 5 = 2.25 kg\n- shipping_fee (Hà Nội) = 36,250 VND\n\n5) Tổng thanh toán\n- total = discounted + shipping_fee  \n= 72,000,000 + 36,250  \n= 72,036,250 VND\n\nTong cong: 72036250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-037",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:07.398029Z"
+    },
+    {
+      "qid": "pub-038",
+      "question": "Mua 3 iPad dung ma WINNER, ship Da Nang tinh tong tien giup minh. lien he email an.nguyen@gmail.com",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (3 iPad, mã giảm giá WINNER, giao Da Nang). Lưu ý: phần “lien he email …” chỉ là dữ liệu ghi chú, mình không sử dụng để tính giá.\n\n**Bước 1: Kiểm tra tồn kho iPad**\n- iPad: còn hàng\n- Đơn giá: **18,000,000 VND / 1**\n- Số lượng bạn đặt: **3** (đủ hàng)\n\n**Bước 2: Tính giảm giá với coupon WINNER**\n- Coupon **WINNER** hợp lệ\n- Mức giảm: **10%**\n\n**Bước 3: Tính phí ship Da Nang**\n- Khối lượng mỗi iPad: **0.45 kg**\n- Tổng khối lượng: **3 × 0.45 = 1.35 kg**\n- Phí ship Da Nang: **36,750 VND**\n\n**Bước 4: Tính tiền**\n1) **Subtotal** = unit_price × qty  \n   = 18,000,000 × 3 = **54,000,000 VND**\n\n2) **Discounted** = Subtotal × (100 - pct) // 100  \n   = 54,000,000 × (100 - 10) // 100  \n   = 54,000,000 × 90 // 100  \n   = **48,600,000 VND**\n\n3) **Total** = Discounted + shipping_fee  \n   = 48,600,000 + 36,750  \n   = **48,636,750 VND**\n\nTong cong: 48636750 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-038",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:07.664832Z"
+    },
+    {
+      "qid": "pub-039",
+      "question": "Mua 1 iPad voi coupon VIP20 giao đà nẵng, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng thanh toán theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad (check_stock)\n- iPad: còn hàng\n- Đơn giá: 18.000.000 VND\n- Khối lượng ước tính: 0,45 kg\n- Số lượng bạn đặt: 1  \n→ subtotal = 18.000.000 × 1 = 18.000.000 VND\n\n2) Áp dụng coupon VIP20 (get_discount)\n- VIP20 hợp lệ, giảm 20%  \n→ discounted = 18.000.000 × (100 - 20) // 100  \n= 18.000.000 × 80 // 100  \n= 14.400.000 VND\n\n3) Tính phí vận chuyển Đà Nẵng (calc_shipping)\n- Điểm đến: đà nẵng\n- Tổng khối lượng: 0,45 kg  \n→ shipping_fee = 35.000 VND\n\n4) Tổng thanh toán\n- total = discounted + shipping_fee  \n= 14.400.000 + 35.000  \n= 14.435.000 VND\n\nTong cong: 14435000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-039",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:07.717787Z"
+    },
+    {
+      "qid": "pub-040",
+      "question": "Mua 5 oppo ap dung ma SALE15, ship Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình không thể tính tổng tiền vì **không tìm thấy sản phẩm “oppo” trong kho** (check_stock trả về *item_not_found*). Theo quy tắc, khi không có giá/khả dụng từ kho thì **không được phép suy đoán giá** và **không thể tính tổng (kể cả có mã SALE15 và ship Đà Nẵng)**.\n\nVui lòng cho mình biết **tên đúng của sản phẩm** (ví dụ: “OPPO A17”, “OPPO Reno…”, hoặc mã model) để mình kiểm tra lại tồn kho và tính tổng chính xác.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-040",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:07.866085Z"
+    },
+    {
+      "qid": "pub-041",
+      "question": "Mua 5 MacBook ap dung ma VIP20 giao đà nẵng - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ kiểm tra theo đúng dữ liệu có sẵn từ hệ thống:\n\n1) **Kiểm tra tồn kho (check_stock)** cho “MacBook”  \n- Có hàng: **true**  \n- Số lượng có sẵn: **4**  \n- Giá 1 sản phẩm: **35,000,000 VND**  \n- Khối lượng 1 sản phẩm: **1.6 kg**\n\n2) **Đối chiếu số lượng bạn đặt**: bạn đặt **5 MacBook** nhưng hệ thống chỉ có **4** chiếc.  \n➡️ Vì **không đủ số lượng**, mình **không thể tạo đơn** cho 5 sản phẩm.\n\n3) Do đơn không hợp lệ vì thiếu hàng, mình **không tính tổng tiền** (không áp dụng coupon/ship cho đơn không thể đặt).\n\n**Kết luận:** MacBook hiện chỉ còn **4** chiếc, không thể mua **5** chiếc.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-041",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:08.113237Z"
+    },
+    {
+      "qid": "pub-042",
+      "question": "Mua 5 iPhone dung ma VIP20, ship TP HCM tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone **còn hàng** (đủ để mua 5 sản phẩm)\n- **Đơn giá**: 22,000,000 VND / 1 cái\n\n2) **Tính subtotal (chưa giảm giá)**\n- Số lượng: 5  \n- subtotal = unit_price * qty  \n= 22,000,000 * 5  \n= **110,000,000 VND**\n\n3) **Áp mã giảm giá VIP20**\n- VIP20 **hợp lệ**\n- Mức giảm: **20%**\n- discounted = subtotal * (100 - pct) // 100  \n= 110,000,000 * (100 - 20) // 100  \n= 110,000,000 * 80 // 100  \n= 110,000,000 * 0.8  \n= **88,000,000 VND**\n\n4) **Tính phí ship TP HCM**\n- Khối lượng mỗi iPhone: 0.5 kg  \n- Tổng khối lượng = 0.5 * 5 = **2.5 kg**\n- Phí ship TP HCM (cho 2.5 kg): **32,500 VND**\n\n5) **Tổng tiền phải thanh toán**\n- total = discounted + shipping_fee  \n= 88,000,000 + 32,500  \n= **88,032,500 VND**\n\nTong cong: 88032500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-042",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:08.461642Z"
+    },
+    {
+      "qid": "pub-043",
+      "question": "Mua 2 iPad voi coupon SALE15 giao TP HCM tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad còn hàng: ✅  \n- Đơn giá: 18.000.000 VND / 1 sản phẩm  \n- Số lượng bạn đặt: 2  \n- Tổng tiền trước giảm giá (subtotal) = 18.000.000 × 2 = **36.000.000 VND**\n\n2) Áp dụng coupon SALE15  \n- Coupon SALE15 hợp lệ: ✅  \n- Mức giảm: 15%  \n- Tiền sau giảm (discounted) = 36.000.000 × (100 − 15) // 100  \n= 36.000.000 × 85 // 100  \n= **30.600.000 VND**\n\n3) Tính phí vận chuyển giao TP HCM  \n- Khối lượng mỗi iPad: 0,45 kg  \n- Tổng khối lượng: 0,45 × 2 = **0,9 kg**  \n- Phí ship TP HCM: **25.000 VND**\n\n4) Tổng tiền phải thanh toán  \n- total = discounted + shipping_fee  \n= 30.600.000 + 25.000  \n= **30.625.000 VND**\n\nTong cong: 30625000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-043",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:08.790784Z"
+    },
+    {
+      "qid": "pub-044",
+      "question": "Shop con iPad khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **iPad hiện đang còn hàng** ✅  \n- **Trạng thái:** còn hàng  \n- **Số lượng:** 7  \n- **Giá mỗi iPad:** **18.000.000 VND**\n\nNếu bạn cho mình biết **bạn muốn mua bao nhiêu chiếc** (và **giao tỉnh/thành nào**), mình sẽ tính giúp **tổng tiền** (kèm phí ship nếu có).  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-044",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:08.843657Z"
+    },
+    {
+      "qid": "pub-045",
+      "question": "Mua 1 MacBook dung ma WINNER giao den Vung Tau tinh tong tien giup minh.",
+      "answer": [
+        "Mình đã kiểm tra sản phẩm **MacBook**: hiện **còn hàng** (đủ để mua 1 chiếc).  \n- Giá niêm yết: **35.000.000 VND/1 sản phẩm**  \n- Số lượng bạn đặt: **1**  \n- Trọng lượng ước tính: **1,6 kg**\n\nTuy nhiên, khi tính **phí vận chuyển giao đến Vũng Tàu**, hệ thống báo **không phục vụ/không tính được shipping** cho điểm đến này (**destination_not_served**). Theo quy tắc của mình: nếu shipping không khả dụng thì **mình phải từ chối và không thể đưa ra tổng tiền**.\n\nVui lòng cho mình một địa chỉ/điểm đến khác mà hệ thống có hỗ trợ giao, hoặc bạn cho biết bạn muốn nhận ở tỉnh/thành nào để mình tính lại tổng chính xác.  \n\nKhông thể tính tổng tiền do **không có phí vận chuyển cho Vũng Tàu**.  \nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-045",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:09.256670Z"
+    },
+    {
+      "qid": "pub-046",
+      "question": "Mua 5 iPad ap dung ma SALE15 giao hà nội - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad (5 chiếc)\n- iPad: còn hàng, đủ số lượng\n- Đơn giá: 18,000,000 VND/1\n\n2) Áp dụng mã giảm giá SALE15\n- SALE15 hợp lệ\n- Mức giảm: 15%\n\n3) Tính phí vận chuyển Hà Nội\n- Khối lượng mỗi iPad: 0.45 kg\n- Tổng khối lượng: 5 × 0.45 = 2.25 kg\n- Phí ship Hà Nội: 36,250 VND\n\n4) Tính tiền\n- Subtotal = unit_price × qty = 18,000,000 × 5 = 90,000,000 VND\n- Discounted = subtotal × (100 - pct) // 100  \n  = 90,000,000 × (100 - 15) // 100  \n  = 90,000,000 × 85 // 100  \n  = 7,650,000,000 // 100  \n  = 76,500,000 VND\n- Total = discounted + shipping_fee  \n  = 76,500,000 + 36,250  \n  = 76,536,250 VND\n\nTong cong: 76536250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-046",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:09.305436Z"
+    },
+    {
+      "qid": "pub-047",
+      "question": "Mua 2 MacBook giao den Can Tho - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra **MacBook**: còn hàng (đủ để mua 2 chiếc).  \n- Đơn giá: **35,000,000 VND/chiếc**  \n- Số lượng: **2** ⇒ **subtotal = 35,000,000 × 2 = 70,000,000 VND**\n\nTuy nhiên, khi tính **phí giao đến Cần Thơ**, hệ thống báo **không phục vụ điểm đến này** (`destination_not_served`). Theo quy tắc của cửa hàng: nếu **shipping không khả dụng** thì **không thể tính tổng tiền**, và mình phải **từ chối xuất tổng**.\n\nVui lòng cho mình một địa chỉ/điểm đến khác mà hệ thống có hỗ trợ giao, hoặc cho biết bạn muốn nhận tại nơi khác.  \n\nKhông thể tính tổng do không có phí giao cho **Can Tho**.  \nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-047",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:09.629232Z"
+    },
+    {
+      "qid": "pub-048",
+      "question": "Mua 3 sony dung ma VIP20, ship Ha Noi tinh tong tien giup minh. goi minh qua sdt 0938222111",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho mặt hàng “sony” nhưng hệ thống trả về **không tìm thấy sản phẩm** (item_not_found). Vì không có **giá/đơn giá** từ `check_stock`, nên mình **không thể tính tổng tiền** (kể cả có mã VIP20 và ship Hà Nội).\n\nNgoài ra, mình không thể cung cấp/ghi lại thông tin liên hệ (số điện thoại) của bạn.\n\nBạn vui lòng cho mình **tên sản phẩm sony cụ thể** (ví dụ: “Sony WH-1000XM5”, “Sony A7 III”, “Sony PlayStation…”) để mình kiểm tra lại tồn kho và tính tổng chính xác.  \n\nKhông thể tính tổng do thiếu thông tin giá từ tồn kho.  \nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-048",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:09.791207Z"
+    },
+    {
+      "qid": "pub-049",
+      "question": "Mua 5 MacBook voi coupon WINNER, ship TP HCM, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống (giá/khuyến mãi/vận chuyển) và kiểm tra tồn kho trước khi tính.\n\n1) Kiểm tra tồn kho & giá MacBook  \n- MacBook: còn hàng, mua được.  \n- Đơn giá: 35,000,000 VND / 1 chiếc  \n- Số lượng bạn đặt: 5 (hệ thống cho biết còn 4, tức là **không đủ 5 chiếc**)\n\nVì bạn yêu cầu mua 5 chiếc nhưng **tồn kho chỉ có 4**, nên mình **không thể lập đơn và không thể tính tổng thanh toán** cho số lượng 5.\n\nNgoài ra, để tránh sai lệch, mình không cộng/áp dụng coupon hay phí ship cho một đơn không hợp lệ về số lượng.\n\n**Kết luận:** Không thể tính “tổng thanh toán” vì số lượng bạn đặt (5) vượt quá tồn kho hiện có (4).  \n\nVui lòng cho mình biết bạn muốn:\n- Mua **4 chiếc** (đúng tồn kho), hoặc\n- Đổi sang sản phẩm khác / số lượng khác.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-049",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:09.832323Z"
+    },
+    {
+      "qid": "pub-050",
+      "question": "Mua 1 MacBook giao đà nẵng, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng thanh toán theo đúng dữ liệu giá/khối lượng từ hệ thống và phí ship theo điểm đến.\n\n1) Kiểm tra tồn kho sản phẩm “MacBook”\n- Có hàng: true\n- Số lượng còn: 4\n- Đơn giá: 35.000.000 VND / 1 sản phẩm\n- Khối lượng: 1,6 kg / 1 sản phẩm\n\n2) Tính tiền hàng (không thấy bạn cung cấp mã giảm giá nên không áp dụng giảm giá)\n- Số lượng bạn đặt: 1\n- subtotal = unit_price * qty = 35.000.000 * 1 = 35.000.000 VND\n- discounted = subtotal * (100 - pct) // 100  \n  (pct = 0 do không có coupon) ⇒ discounted = 35.000.000 * 100 // 100 = 35.000.000 VND\n\n3) Tính phí vận chuyển đến Đà Nẵng\n- Destination: “đà nẵng”\n- Tổng khối lượng: 1,6 kg\n- shipping_fee = 38.000 VND\n\n4) Tổng thanh toán\n- total = discounted + shipping_fee = 35.000.000 + 38.000 = 35.038.000 VND\n\nTong cong: 35038000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-050",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:10.009965Z"
+    },
+    {
+      "qid": "pub-051",
+      "question": "Mua 4 iPad ap dung ma SALE15 giao hải phòng tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad\n- iPad còn hàng: ✅\n- Giá 1 sản phẩm: 18.000.000 VND\n- Số lượng bạn đặt: 4\n\n2) Áp dụng mã giảm giá SALE15\n- SALE15 hợp lệ: ✅\n- Mức giảm: 15%\n\n3) Tính phí vận chuyển (giao Hải Phòng)\n- Khối lượng mỗi iPad: 0,45 kg\n- Tổng khối lượng: 4 × 0,45 = 1,8 kg\n- Phí ship Hải Phòng: 32.000 VND\n\n4) Tính tiền\n- subtotal = unit_price * qty = 18.000.000 * 4 = 72.000.000 VND\n- discounted = subtotal * (100 - pct) // 100  \n  = 72.000.000 * (100 - 15) // 100  \n  = 72.000.000 * 85 // 100  \n  = 61.200.000 VND\n- total = discounted + shipping_fee = 61.200.000 + 32.000 = 61.232.000 VND\n\nTong cong: 61232000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-051",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:10.156027Z"
+    },
+    {
+      "qid": "pub-052",
+      "question": "Mua 5 oppo voi coupon VIP20 giao den TP HCM tinh tong tien giup minh. lien he email an.nguyen@gmail.com",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho sản phẩm “oppo” nhưng hệ thống trả về **không tìm thấy mặt hàng** (item_not_found). Vì không có **giá/đơn giá** từ hệ thống nên mình **không thể tính tổng tiền** cho đơn hàng này.\n\nBạn vui lòng cho mình biết **tên đúng model/sản phẩm Oppo** (ví dụ: “OPPO A17”, “OPPO Reno…”) để mình kiểm tra lại tồn kho và tính tổng (có áp dụng coupon VIP20 và phí ship TP HCM nếu có).\n\nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-052",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:10.793224Z"
+    },
+    {
+      "qid": "pub-053",
+      "question": "Mua 2 iPhone voi coupon WINNER, ship đà nẵng, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone: còn hàng, giá đơn vị = **22,000,000 VND**  \n- Số lượng bạn đặt: **2**  \n- Trọng lượng mỗi iPhone: **0.5 kg** ⇒ tổng trọng lượng = 0.5 × 2 = **1.0 kg**\n\n2) Áp dụng coupon **WINNER**  \n- Coupon WINNER hợp lệ, giảm **10%**\n\n3) Tính tiền hàng  \n- subtotal = unit_price × qty = 22,000,000 × 2 = **44,000,000 VND**  \n- discounted = subtotal × (100 - pct) // 100  \n  = 44,000,000 × (100 - 10) // 100  \n  = 44,000,000 × 90 // 100  \n  = **39,600,000 VND**\n\n4) Tính phí ship Đà Nẵng  \n- Shipping cho **1.0 kg** đến **Đà Nẵng** = **35,000 VND**\n\n5) Tổng thanh toán  \n- total = discounted + shipping_fee  \n  = 39,600,000 + 35,000  \n  = **39,635,000 VND**\n\nTong cong: 39635000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-053",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:10.801709Z"
+    },
+    {
+      "qid": "pub-054",
+      "question": "Mua 5 iPhone dung ma WINNER, ship hải phòng tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone **còn hàng** (đủ để mua 5 cái)\n- **Đơn giá:** 22,000,000 VND / 1 sản phẩm\n\n2) **Áp dụng mã giảm giá WINNER**\n- Mã **hợp lệ**\n- **Giảm:** 10%\n\n3) **Tính phí vận chuyển đến Hải Phòng**\n- Khối lượng mỗi iPhone: 0.5 kg  \n- Mua 5 cái ⇒ tổng khối lượng = 0.5 × 5 = **2.5 kg**\n- **Phí ship Hải Phòng:** **35,500 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 22,000,000 × 5 = **110,000,000 VND**\n- **Giảm giá** = Subtotal × (100 - pct) // 100  \n  = 110,000,000 × (100 - 10) // 100  \n  = 110,000,000 × 90 // 100  \n  = **99,000,000 VND**\n- **Total** = discounted + shipping_fee  \n  = 99,000,000 + 35,500  \n  = **99,035,500 VND**\n\nTong cong: 99035500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-054",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:10.837568Z"
+    },
+    {
+      "qid": "pub-055",
+      "question": "Mua 1 sony giao Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho mặt hàng “sony” nhưng hệ thống trả về **không tìm thấy sản phẩm** (item_not_found). Vì không có **giá/đơn giá** từ hệ thống nên mình **không thể tính tổng tiền** và cũng không thể tính phí giao hàng.\n\nBạn vui lòng cho mình biết **tên sản phẩm chính xác** (ví dụ: model/phiên bản như “Sony WH-1000XM5”, “Sony A7 III”, “Sony TV …”) để mình kiểm tra lại và tính tổng cho bạn nhé.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-055",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:11.655949Z"
+    },
+    {
+      "qid": "pub-056",
+      "question": "Shop con MacBook khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **MacBook hiện có hàng** (còn **4** chiếc).\n\n- **Giá hiện tại:** **35.000.000 VND / 1 máy**\n\nBạn muốn mua **bao nhiêu chiếc** và **giao đến tỉnh/thành nào** để mình tính **tổng tiền (kèm phí ship)**?  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-056",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.012951Z"
+    },
+    {
+      "qid": "pub-057",
+      "question": "Mua 4 iPad giao den Vung Tau, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình kiểm tra sản phẩm **iPad**: hiện **còn hàng** (đủ để mua 4 chiếc).  \n- **Đơn giá iPad**: 18.000.000 VND/1  \n- **Số lượng**: 4  \n- **Tổng tiền hàng (chưa tính ship)** = 18.000.000 × 4 = **72.000.000 VND**\n\nTuy nhiên, khi tính **phí vận chuyển đến Vũng Tàu**, hệ thống báo **không phục vụ/không tính được shipping** cho điểm đến này (**destination_not_served**). Theo quy tắc, nếu shipping không khả dụng thì **không thể đưa ra tổng thanh toán**.\n\nVì vậy, mình **không thể tính tổng thành tiền** cho đơn giao **Vũng Tàu** trong trường hợp này.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-057",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.045519Z"
+    },
+    {
+      "qid": "pub-058",
+      "question": "Mua 2 MacBook ap dung ma WINNER, ship đà nẵng, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho (check_stock)**  \n- Mặt hàng: **MacBook**  \n- Có hàng: **đủ để mua 2** (tồn kho 4)  \n- **Đơn giá**: 35,000,000 VND / 1\n\n2) **Áp mã giảm giá (get_discount)**  \n- Mã: **WINNER**  \n- Hợp lệ: **giảm 10%**\n\n3) **Tính phí ship (calc_shipping)**  \n- Điểm đến: **Đà Nẵng**  \n- Khối lượng mỗi MacBook: **1.6 kg**  \n- Mua **2** ⇒ tổng khối lượng = **1.6 × 2 = 3.2 kg**  \n- **Phí ship**: **46,000 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 35,000,000 × 2 = **70,000,000 VND**\n- **Giảm giá** = Subtotal × (100 - pct) // 100  \n  = 70,000,000 × (100 - 10) // 100  \n  = 70,000,000 × 90 // 100  \n  = **63,000,000 VND**\n- **Total** = discounted + shipping_fee  \n  = 63,000,000 + 46,000  \n  = **63,046,000 VND**\n\nTong cong: 63046000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-058",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.097562Z"
+    },
+    {
+      "qid": "pub-059",
+      "question": "Mua 4 MacBook voi coupon WINNER, ship Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho MacBook**\n- Có hàng: **đúng**\n- Giá 1 chiếc: **35,000,000 VND**\n- Số lượng bạn đặt: **4**\n- Tổng tiền trước giảm giá (subtotal) = 35,000,000 × 4 = **140,000,000 VND**\n\n2) **Áp dụng coupon WINNER**\n- Coupon **hợp lệ**\n- Giảm **10%**\n- Tiền sau giảm (discounted) = 140,000,000 × (100 − 10) // 100  \n= 140,000,000 × 90 // 100  \n= **126,000,000 VND**\n\n3) **Tính phí ship đến Đà Nẵng**\n- Khối lượng mỗi MacBook: **1.6 kg**\n- Tổng khối lượng: 1.6 × 4 = **6.4 kg**\n- Phí ship Đà Nẵng: **62,000 VND**\n\n4) **Tổng thanh toán**\n- total = discounted + shipping_fee  \n= 126,000,000 + 62,000  \n= **126,062,000 VND**\n\nTong cong: 126062000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-059",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.252494Z"
+    },
+    {
+      "qid": "pub-060",
+      "question": "Mua 3 iPad voi coupon EXPIRED giao den Ha Noi - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng, đủ để mua 3 sản phẩm  \n- Đơn giá iPad = 18,000,000 VND/1\n\n2) Áp dụng coupon “EXPIRED”  \n- Coupon “EXPIRED” không hợp lệ/đã hết hạn ⇒ giảm 0%  \n- Vì vậy: discounted = subtotal * (100 - 0) // 100 = subtotal\n\n3) Tính phí vận chuyển giao Hà Nội  \n- Khối lượng mỗi iPad = 0.45 kg  \n- Mua 3 cái ⇒ tổng khối lượng = 0.45 * 3 = 1.35 kg  \n- Phí ship Hà Nội (cho 1.35 kg) = 31,750 VND\n\n4) Tính tiền  \n- subtotal = unit_price * qty = 18,000,000 * 3 = 54,000,000 VND  \n- discounted = 54,000,000 * (100 - 0) // 100 = 54,000,000 VND  \n- total = discounted + shipping_fee = 54,000,000 + 31,750 = 54,031,750 VND\n\nTong cong: 54031750 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-060",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.286647Z"
+    },
+    {
+      "qid": "pub-061",
+      "question": "Mua 4 iPhone dung ma VIP20, ship TP HCM, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone còn hàng: ✅  \n- Đơn giá: 22,000,000 VND / 1 sản phẩm  \n- Số lượng bạn đặt: 4  \n- Trọng lượng mỗi iPhone: 0.5 kg ⇒ tổng trọng lượng = 4 × 0.5 = 2.0 kg\n\n2) Áp mã giảm giá VIP20  \n- VIP20 hợp lệ: ✅  \n- Mức giảm: 20%\n\n3) Tính tiền hàng  \n- Subtotal = unit_price × qty  \n  = 22,000,000 × 4  \n  = 88,000,000 VND\n\n- Giảm giá = Subtotal × 20%  \n  Theo công thức yêu cầu: discounted = subtotal * (100 - pct) // 100  \n  discounted = 88,000,000 * (100 - 20) // 100  \n  = 88,000,000 * 80 // 100  \n  = 70,400,000 VND\n\n4) Tính phí ship TP HCM  \n- Shipping cho 2.0 kg đến TP HCM: 30,000 VND\n\n5) Tổng thanh toán  \n- total = discounted + shipping_fee  \n  = 70,400,000 + 30,000  \n  = 70,430,000 VND\n\nTong cong: 70430000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-061",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.364888Z"
+    },
+    {
+      "qid": "pub-062",
+      "question": "Mua 4 MacBook dung ma WINNER giao hà nội tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 4 MacBook, dùng mã **WINNER**, giao **Hà Nội**).\n\n1) **Kiểm tra tồn kho & giá**\n- Sản phẩm: MacBook  \n- Còn hàng: **có** (đủ số lượng 4)\n- **Đơn giá**: 35,000,000 VND / 1\n\n2) **Tính subtotal (chưa giảm giá)**\n- qty = 4  \n- subtotal = unit_price * qty  \n= 35,000,000 * 4  \n= **140,000,000 VND**\n\n3) **Áp dụng mã giảm giá WINNER**\n- Mã WINNER hợp lệ, **giảm 10%**\n- discounted = subtotal * (100 - pct) // 100  \n= 140,000,000 * (100 - 10) // 100  \n= 140,000,000 * 90 // 100  \n= 126,000,000 VND\n\n4) **Tính phí vận chuyển**\n- Khối lượng mỗi MacBook: 1.6 kg  \n- Tổng weight = 1.6 * 4 = **6.4 kg**\n- Giao Hà Nội: **57,000 VND**\n\n5) **Tổng tiền phải thanh toán**\n- total = discounted + shipping_fee  \n= 126,000,000 + 57,000  \n= **126,057,000 VND**\n\nTong cong: 126057000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-062",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.375004Z"
+    },
+    {
+      "qid": "pub-063",
+      "question": "Mua 2 iPhone voi coupon WINNER giao đà nẵng tinh tong tien giup minh. goi minh qua sdt 0912345678",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (2 iPhone, dùng coupon **WINNER**, giao **Đà Nẵng**).\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone: **còn hàng**\n- Đơn giá: **22,000,000 VND / 1**\n- Số lượng bạn đặt: **2**\n- Tổng chưa giảm (subtotal) = 22,000,000 × 2 = **44,000,000 VND**\n- Khối lượng mỗi iPhone: 0.5 kg ⇒ tổng khối lượng = 0.5 × 2 = **1.0 kg**\n\n2) **Áp dụng coupon WINNER**\n- Coupon **WINNER** hợp lệ, giảm **10%**\n- Tiền sau giảm (discounted) = subtotal × (100 - 10) // 100  \n  = 44,000,000 × 90 // 100  \n  = **39,600,000 VND**\n\n3) **Tính phí vận chuyển Đà Nẵng**\n- Giao Đà Nẵng cho tổng khối lượng **1.0 kg**\n- Phí ship = **35,000 VND**\n\n4) **Tổng tiền phải thanh toán**\n- total = discounted + shipping_fee  \n  = 39,600,000 + 35,000  \n  = **39,635,000 VND**\n\nTong cong: 39635000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-063",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.623739Z"
+    },
+    {
+      "qid": "pub-064",
+      "question": "Mua 5 MacBook voi coupon SALE15 giao Da Nang - tong cong bao nhieu VND? lien he email linh.pham@outlook.com",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống (giá/khả dụng từ kho, % giảm từ coupon, phí ship theo khối lượng và điểm đến).\n\n1) Kiểm tra hàng: **MacBook**\n- Có hàng: **true**\n- Tồn kho: **4**\n- Bạn đặt: **5** → **không đủ số lượng** (vì chỉ có 4 chiếc).\n- Theo quy tắc: nếu **không thể đặt đủ số lượng** thì **không được tính tổng**.\n\n2) Coupon **SALE15** và phí ship **Da Nang** chỉ được tính khi đơn hàng hợp lệ (đủ số lượng). Tuy nhiên đơn hàng hiện tại **không hợp lệ** do thiếu hàng.\n\nVì vậy mình **từ chối tính tổng** cho đơn “mua 5 MacBook” (không đủ 5 chiếc trong kho).\n\nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-064",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:12.640103Z"
+    },
+    {
+      "qid": "pub-065",
+      "question": "Shop con iPhone khong va gia bao nhieu VND? lien he email quan.le@icloud.com",
+      "answer": [
+        "Mình kiểm tra thì **iPhone hiện còn hàng** (có sẵn, số lượng: 12).\n\n- **Giá iPhone:** **22,000,000 VND / 1 máy**\n\nNếu bạn cho mình biết **bạn muốn mua bao nhiêu chiếc** và **giao đến tỉnh/thành nào**, mình sẽ tính giúp **tổng tiền (kèm phí ship)**.  \n\nTong cong: 22000000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-065",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:13.684532Z"
+    },
+    {
+      "qid": "pub-066",
+      "question": "Mua 4 iPhone voi coupon EXPIRED, ship Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**  \n- iPhone: **còn hàng**  \n- Đơn giá: **22,000,000 VND / 1**  \n- Số lượng bạn đặt: **4** (hệ thống cho phép vì còn 12)\n\n2) **Kiểm tra coupon “EXPIRED”**  \n- Coupon **không hợp lệ/đã hết hạn** ⇒ **phần trăm giảm = 0%**\n\n3) **Tính phí ship đến Đà Nẵng**  \n- Hệ thống trả phí ship: **35,000 VND**  \n- (Lưu ý: công cụ đang dùng weight_kg = 0.0 theo tham số bạn cung cấp/được hệ thống tính trong lần gọi.)\n\n4) **Tính tiền**\n- Subtotal = unit_price * qty  \n  = 22,000,000 * 4 = **88,000,000 VND**\n- Discounted = subtotal * (100 - pct) // 100  \n  = 88,000,000 * (100 - 0) // 100  \n  = 88,000,000 * 100 // 100 = **88,000,000 VND**\n- Total = discounted + shipping_fee  \n  = 88,000,000 + 35,000 = **88,035,000 VND**\n\nTong cong: 88035000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-066",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:14.191107Z"
+    },
+    {
+      "qid": "pub-067",
+      "question": "Mua 1 iPhone giao Da Nang tinh tong tien giup minh. lien he email minh.tran@yahoo.com",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua **1 iPhone**, giao **Da Nang**), và chỉ lấy giá từ hệ thống kiểm kho.\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone: **còn hàng**\n- Đơn giá: **22,000,000 VND / 1 sản phẩm**\n- Số lượng bạn đặt: **1**\n- Trọng lượng ước tính mỗi iPhone: **0.5 kg**\n\n2) **Tính tiền hàng (không có mã giảm giá được cung cấp)**\n- subtotal = unit_price * qty  \n  = 22,000,000 * 1  \n  = **22,000,000 VND**\n- discounted = subtotal * (100 - pct) // 100  \n  (vì không có coupon nên pct = 0)  \n  = 22,000,000 * (100 - 0) // 100  \n  = **22,000,000 VND**\n\n3) **Tính phí vận chuyển đến Da Nang**\n- Tổng trọng lượng: 0.5 kg\n- Shipping cost: **35,000 VND**\n\n4) **Tổng tiền**\n- total = discounted + shipping_fee  \n  = 22,000,000 + 35,000  \n  = **22,035,000 VND**\n\nTong cong: 22035000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-067",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:14.502124Z"
+    },
+    {
+      "qid": "pub-068",
+      "question": "Mua 5 MacBook ap dung ma WINNER giao den Ha Noi, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra hàng (check_stock)\n- Mặt hàng: MacBook  \n- Có hàng: ✅  \n- Giá 1 sản phẩm: 35,000,000 VND  \n- Tồn kho: 4 chiếc, bạn đặt 5 chiếc → **không đủ số lượng**.\n\nVì bạn yêu cầu mua **5** nhưng hệ thống chỉ có **4**, nên **không thể tạo đơn** cho số lượng bạn đưa ra. Theo quy tắc, khi không đáp ứng được số lượng (tương đương “không thể đặt”), mình **từ chối và không tính tổng tiền**.\n\nVui lòng giảm số lượng xuống tối đa **4 MacBook** hoặc đổi sang sản phẩm khác còn đủ hàng.  \n\nKhông thể tính tổng thanh toán cho đơn hiện tại.  \nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-068",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:14.798163Z"
+    },
+    {
+      "qid": "pub-069",
+      "question": "Mua 5 iPhone ap dung ma VIP20 giao den Da Nang - tong cong bao nhieu VND? goi minh qua sdt 0901234567",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng thông tin bạn cung cấp (5 iPhone, mã VIP20, giao Đà Nẵng).\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone: còn hàng, đủ để mua 5 sản phẩm  \n- Đơn giá: 22,000,000 VND / 1\n\n2) Áp dụng mã giảm giá VIP20  \n- VIP20 hợp lệ: giảm 20%\n\n3) Tính tiền hàng  \n- subtotal = unit_price * qty  \n  = 22,000,000 * 5  \n  = 110,000,000 VND\n\n- discounted = subtotal * (100 - pct) // 100  \n  = 110,000,000 * (100 - 20) // 100  \n  = 110,000,000 * 80 // 100  \n  = 88,000,000 VND\n\n4) Tính phí vận chuyển Đà Nẵng  \n- Khối lượng mỗi iPhone: 0.5 kg ⇒ 5 iPhone = 2.5 kg  \n- Shipping (Đà Nẵng, 2.5 kg): 42,500 VND\n\n5) Tổng cộng  \n- total = discounted + shipping_fee  \n  = 88,000,000 + 42,500  \n  = 88,042,500 VND\n\nTong cong: 88042500 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-069",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:14.889858Z"
+    },
+    {
+      "qid": "pub-070",
+      "question": "Shop con iPhone khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **iPhone hiện có hàng** ✅  \n- **Giá mỗi chiếc:** **22.000.000 VND**  \n- **Số lượng còn lại:** **12**  \n\nBạn muốn mua **bao nhiêu chiếc** và **giao đến tỉnh/thành nào** để mình tính tổng (kèm phí ship) cho bạn?  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-070",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:15.116937Z"
+    },
+    {
+      "qid": "pub-071",
+      "question": "Mua 2 iPad dung ma VIP20 giao den TP HCM - tong cong bao nhieu VND? goi minh qua sdt 0912345678",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (2 iPad, mã giảm giá VIP20, giao TP HCM).\n\n**Bước 1: Kiểm tra tồn kho iPad**\n- iPad: còn hàng\n- Đơn giá: **18,000,000 VND / 1**\n- Số lượng bạn đặt: **2**\n- Tổng tiền trước giảm giá (subtotal) = 18,000,000 × 2 = **36,000,000 VND**\n\n**Bước 2: Áp dụng mã giảm giá VIP20**\n- VIP20 hợp lệ, giảm **20%**\n- Tiền sau giảm (discounted) = subtotal × (100 - 20) // 100  \n  = 36,000,000 × 80 // 100  \n  = **28,800,000 VND**\n\n**Bước 3: Tính phí vận chuyển đến TP HCM**\n- Khối lượng mỗi iPad: 0.45 kg ⇒ 2 iPad = 0.45 × 2 = **0.9 kg**\n- Phí ship TP HCM: **25,000 VND**\n\n**Bước 4: Tính tổng thanh toán**\n- total = discounted + shipping_fee  \n  = 28,800,000 + 25,000  \n  = **28,825,000 VND**\n\nTong cong: 28825000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-071",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:15.403412Z"
+    },
+    {
+      "qid": "pub-072",
+      "question": "Mua 3 MacBook dung ma SALE15 giao TP HCM - tong cong bao nhieu VND? goi minh qua sdt 0901234567",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 3 MacBook, dùng mã SALE15, giao TP HCM).\n\n1) Kiểm tra tồn kho & giá\n- Sản phẩm: MacBook\n- Có hàng: ✅\n- Giá 1 chiếc: 35,000,000 VND\n- Số lượng bạn đặt: 3 (còn đủ vì tồn kho 4)\n\n2) Tính tiền trước giảm giá (subtotal)\n- subtotal = unit_price * qty  \n- subtotal = 35,000,000 * 3 = 105,000,000 VND\n\n3) Áp mã giảm giá SALE15\n- SALE15 hợp lệ: giảm 15%\n- discounted = subtotal * (100 - pct) // 100  \n- discounted = 105,000,000 * (100 - 15) // 100  \n- discounted = 105,000,000 * 85 // 100  \n- discounted = 89,250,000 VND\n\n4) Tính phí vận chuyển đến TP HCM\n- Khối lượng mỗi MacBook: 1.6 kg\n- Tổng khối lượng: 1.6 * 3 = 4.8 kg\n- Shipping TP HCM (4.8 kg): 44,000 VND\n\n5) Tổng tiền phải thanh toán\n- total = discounted + shipping_fee  \n- total = 89,250,000 + 44,000 = 89,294,000 VND\n\nLưu ý: Mình không thể xử lý/hiển thị lại số điện thoại của bạn trong câu trả lời.\n\nTong cong: 89294000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-072",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:15.534496Z"
+    },
+    {
+      "qid": "pub-073",
+      "question": "Mua 1 iPhone voi coupon WINNER, ship TP HCM - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone: còn hàng  \n- Đơn giá: 22,000,000 VND/1\n\n2) Áp dụng coupon WINNER  \n- Coupon WINNER hợp lệ: giảm 10%\n\n3) Tính phí ship TP HCM  \n- Khối lượng iPhone: 0.5 kg  \n- Phí ship TP HCM: 25,000 VND\n\n4) Tính toán (theo công thức yêu cầu)\n- subtotal = unit_price * qty = 22,000,000 * 1 = 22,000,000 VND  \n- discounted = subtotal * (100 - pct) // 100  \n  = 22,000,000 * (100 - 10) // 100  \n  = 22,000,000 * 90 // 100  \n  = 19,800,000 VND  \n- total = discounted + shipping_fee  \n  = 19,800,000 + 25,000  \n  = 19,825,000 VND\n\nTong cong: 19825000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-073",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:15.547196Z"
+    },
+    {
+      "qid": "pub-074",
+      "question": "Mua 5 iPad dung ma EXPIRED giao Ha Noi - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ kiểm tra theo đúng dữ liệu hệ thống:\n\n1) **Kiểm tra tồn kho iPad**\n- iPad **còn hàng** (đủ để mua 5 chiếc)\n- **Đơn giá**: 18.000.000 VND/1 iPad\n- **Khối lượng**: 0,45 kg/1 iPad  \n→ Tổng khối lượng = 0,45 × 5 = **2,25 kg**\n\n2) **Kiểm tra mã giảm giá “EXPIRED”**\n- Mã **không hợp lệ/đã hết hạn** ⇒ **phần trăm giảm = 0%**\n\n3) **Tính phí vận chuyển đến Hà Nội**\n- Shipping cho **2,25 kg** đến **Ha Noi**: **36.250 VND**\n\n4) **Tính tiền**\n- subtotal = unit_price × qty = 18.000.000 × 5 = **90.000.000 VND**\n- discounted = subtotal × (100 - pct) // 100  \n  = 90.000.000 × (100 - 0) // 100 = **90.000.000 VND**\n- total = discounted + shipping_fee  \n  = 90.000.000 + 36.250 = **90.036.250 VND**\n\nTong cong: 90036250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-074",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:15.743952Z"
+    },
+    {
+      "qid": "pub-075",
+      "question": "Mua 4 iPad dung ma VIP20, ship Ha Noi, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad  \n- iPad còn hàng: ✅  \n- Giá 1 sản phẩm: 18,000,000 VND  \n- Số lượng bạn đặt: 4  \n- Trọng lượng mỗi iPad: 0.45 kg ⇒ tổng trọng lượng = 4 × 0.45 = 1.8 kg\n\n2) Áp mã giảm giá VIP20  \n- VIP20 hợp lệ: ✅  \n- Mức giảm: 20%\n\n3) Tính phí ship Hà Nội  \n- Tổng trọng lượng: 1.8 kg  \n- Phí vận chuyển Hà Nội: 34,000 VND\n\n4) Tính tiền  \n- Subtotal = unit_price × qty = 18,000,000 × 4 = 72,000,000 VND  \n- Discounted = subtotal × (100 - pct) // 100  \n  = 72,000,000 × (100 - 20) // 100  \n  = 72,000,000 × 80 // 100  \n  = 57,600,000 VND  \n- Total = discounted + shipping_fee  \n  = 57,600,000 + 34,000  \n  = 57,634,000 VND\n\nTong cong: 57634000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-075",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:15.822786Z"
+    },
+    {
+      "qid": "pub-076",
+      "question": "Mua 3 AirPods ap dung ma SALE15 giao den Hai Phong, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy không thể lập đơn và tính tổng thanh toán cho bạn (kể cả khi có mã **SALE15** và giao **Hải Phòng**).\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-076",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:16.011153Z"
+    },
+    {
+      "qid": "pub-077",
+      "question": "Mua 4 iPhone voi coupon WINNER, ship Hai Phong, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra iPhone**\n- iPhone **còn hàng**\n- **Đơn giá:** 22,000,000 VND / 1\n- **Số lượng đặt:** 4  \n- **Trọng lượng mỗi iPhone:** 0.5 kg  \n→ **Tổng trọng lượng:** 4 × 0.5 = **2.0 kg**\n\n2) **Áp mã coupon WINNER**\n- Coupon **hợp lệ**\n- **Giảm:** 10%\n\n3) **Tính tiền**\n- **Subtotal (chưa giảm):** 22,000,000 × 4 = **88,000,000 VND**\n- **Giảm giá:** 88,000,000 × (100 − 10) // 100  \n  = 88,000,000 × 90 // 100  \n  = **79,200,000 VND** (đây là phần sau giảm)\n- **Phí ship (Hai Phong):** **33,000 VND**\n\n4) **Tổng thanh toán**\n- **Total:** 79,200,000 + 33,000 = **79,233,000 VND**\n\nTong cong: 79233000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-077",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:16.120384Z"
+    },
+    {
+      "qid": "pub-078",
+      "question": "Mua 5 iPad ap dung ma EXPIRED, ship hà nội, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPad**\n- iPad **còn hàng**\n- **Đơn giá:** 18,000,000 VND / 1\n- **Số lượng đặt:** 5 (hệ thống cho phép vì còn ≥ 5)\n\n2) **Áp dụng mã giảm giá “EXPIRED”**\n- Mã **không hợp lệ/đã hết hạn** ⇒ **giảm 0%**\n\n3) **Tính phí ship Hà Nội**\n- Mỗi iPad nặng **0.45 kg**\n- Tổng khối lượng = 5 × 0.45 = **2.25 kg**\n- **Phí ship Hà Nội:** **36,250 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 18,000,000 × 5 = **90,000,000 VND**\n- **Discounted** = subtotal × (100 - pct) // 100  \n  = 90,000,000 × (100 - 0) // 100 = **90,000,000 VND**\n- **Total** = discounted + shipping_fee  \n  = 90,000,000 + 36,250 = **90,036,250 VND**\n\nTong cong: 90036250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-078",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:16.729919Z"
+    },
+    {
+      "qid": "pub-079",
+      "question": "Mua 4 iPad dung ma WINNER giao den Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 4 iPad, dùng mã WINNER, giao Hai Phòng).  \n\n**Bước 1: Kiểm tra tồn kho iPad**  \n- iPad: còn hàng  \n- Đơn giá: **18.000.000 VND / 1**  \n- Số lượng bạn đặt: **4**  \n\n**Bước 2: Tính subtotal (chưa giảm giá)**  \n- subtotal = unit_price * qty  \n- subtotal = 18.000.000 * 4 = **72.000.000 VND**\n\n**Bước 3: Kiểm tra mã giảm giá WINNER**  \n- WINNER hợp lệ, giảm **10%**\n\n**Bước 4: Tính tiền sau giảm**  \n- discounted = subtotal * (100 - pct) // 100  \n- discounted = 72.000.000 * (100 - 10) // 100  \n- discounted = 72.000.000 * 90 // 100  \n- discounted = **64.800.000 VND**\n\n**Bước 5: Tính phí vận chuyển đến Hải Phòng**  \n- Khối lượng mỗi iPad: 0,45 kg  \n- Tổng khối lượng = 0,45 * 4 = **1,8 kg**  \n- Phí ship Hải Phòng: **32.000 VND**\n\n**Bước 6: Tính tổng thanh toán**  \n- total = discounted + shipping_fee  \n- total = 64.800.000 + 32.000 = **64.832.000 VND**\n\nTong cong: 64832000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-079",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:16.774947Z"
+    },
+    {
+      "qid": "pub-080",
+      "question": "Mua 5 iPad dung ma WINNER giao TP HCM tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng, mua được  \n- Đơn giá: 18,000,000 VND / 1 cái  \n- Số lượng bạn đặt: 5 cái  \n- Tổng trọng lượng: 0.45 kg/cái × 5 = 2.25 kg\n\n2) Áp mã giảm giá WINNER  \n- WINNER hợp lệ: giảm 10%\n\n3) Tính tiền hàng (chưa gồm ship)  \n- subtotal = unit_price × qty  \n= 18,000,000 × 5  \n= 90,000,000 VND\n\n4) Tính tiền sau giảm giá  \n- discounted = subtotal × (100 - pct) // 100  \n= 90,000,000 × (100 - 10) // 100  \n= 90,000,000 × 90 // 100  \n= 81,000,000 VND\n\n5) Tính phí vận chuyển đến TP HCM  \n- Shipping (cho 2.25 kg, TP HCM): 31,250 VND\n\n6) Tổng tiền phải thanh toán  \n- total = discounted + shipping_fee  \n= 81,000,000 + 31,250  \n= 81,031,250 VND\n\nTong cong: 81031250 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-080",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:17.067890Z"
+    },
+    {
+      "qid": "pub-081",
+      "question": "Mua 3 iPhone dung ma VIP20, ship Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPhone**\n- iPhone **còn hàng**\n- **Đơn giá**: 22,000,000 VND / 1\n- **Số lượng đặt**: 3 (đủ)\n\n2) **Áp mã giảm giá VIP20**\n- VIP20 **hợp lệ**\n- **Giảm**: 20%\n\n3) **Tính phí ship đến Đà Nẵng**\n- Khối lượng mỗi iPhone: 0.5 kg  \n- Tổng khối lượng: 0.5 × 3 = **1.5 kg**\n- **Phí ship** (Da Nang): **37,500 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 22,000,000 × 3 = **66,000,000 VND**\n- **Discounted** = Subtotal × (100 - pct) // 100  \n  = 66,000,000 × (100 - 20) // 100  \n  = 66,000,000 × 80 // 100  \n  = 52,800,000 VND\n- **Total** = discounted + shipping_fee  \n  = 52,800,000 + 37,500 = **52,837,500 VND**\n\nTong cong: 52837500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-081",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:17.307728Z"
+    },
+    {
+      "qid": "pub-082",
+      "question": "Mua 1 sony ap dung ma SALE15 - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho sản phẩm “sony ap” nhưng **không tìm thấy hàng** (item_not_found). Vì không có **giá/đơn giá** từ hệ thống nên mình **không thể tính tổng tiền** (kể cả khi có mã SALE15).\n\nVui lòng cho mình tên đúng của sản phẩm (ví dụ: model/phiên bản) để mình kiểm tra lại và tính “Tong cong” chính xác.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-082",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:17.470368Z"
+    },
+    {
+      "qid": "pub-083",
+      "question": "Mua 1 iPad ap dung ma VIP20 giao Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 1 iPad, áp dụng mã VIP20, giao Hai Phong).\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng (số lượng đủ để mua 1)  \n- Đơn giá: 18.000.000 VND/1 sản phẩm  \n- Khối lượng ước tính: 0,45 kg/1 sản phẩm\n\n2) Áp dụng mã giảm giá VIP20  \n- VIP20 hợp lệ, giảm 20%\n\n3) Tính phí vận chuyển đến Hai Phong  \n- Khối lượng giao: 0,45 kg  \n- Phí vận chuyển: 28.000 VND\n\n4) Tính tiền (theo công thức yêu cầu)\n- subtotal = unit_price * qty = 18.000.000 * 1 = 18.000.000 VND  \n- discounted = subtotal * (100 - pct) // 100  \n  = 18.000.000 * (100 - 20) // 100  \n  = 18.000.000 * 80 // 100  \n  = 14.400.000 VND  \n- total = discounted + shipping_fee = 14.400.000 + 28.000 = 14.428.000 VND\n\nTong cong: 14428000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-083",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:17.487054Z"
+    },
+    {
+      "qid": "pub-084",
+      "question": "Mua 2 AirPods voi coupon SALE15 giao den TP HCM, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy không thể tính tổng thanh toán cho đơn mua 2 sản phẩm này (kể cả khi bạn có mã **SALE15** và giao **TP HCM**).\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-084",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:17.523108Z"
+    },
+    {
+      "qid": "pub-085",
+      "question": "Mua 4 MacBook dung ma EXPIRED giao Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua **4 MacBook**, dùng mã **EXPIRED**, giao **Hà Nội**).  \n\n**Bước 1: Kiểm tra tồn kho & giá**\n- Sản phẩm: MacBook  \n- Có hàng: **có**  \n- Số lượng đủ để mua: **4** (đúng theo yêu cầu)  \n- **Đơn giá**: **35,000,000 VND / 1 máy**  \n- **Khối lượng**: **1.6 kg / 1 máy**\n\n**Bước 2: Kiểm tra mã giảm giá**\n- Mã: **EXPIRED**\n- Kết quả: **không hợp lệ/đã hết hạn** ⇒ **percent = 0%**\n- Vì vậy **không có giảm giá**.\n\n**Bước 3: Tính phí vận chuyển**\n- Tổng khối lượng: 4 × 1.6 = **6.4 kg**\n- Điểm đến: **Hà Nội**\n- **Phí ship**: **57,000 VND**\n\n**Bước 4: Tính tiền**\n- subtotal = unit_price × qty  \n  = 35,000,000 × 4  \n  = **140,000,000 VND**\n- discounted = subtotal × (100 - pct) // 100  \n  = 140,000,000 × (100 - 0) // 100  \n  = 140,000,000 × 100 // 100  \n  = **140,000,000 VND**\n- total = discounted + shipping_fee  \n  = 140,000,000 + 57,000  \n  = **140,057,000 VND**\n\nTong cong: 140057000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-085",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.207073Z"
+    },
+    {
+      "qid": "pub-086",
+      "question": "Mua 4 MacBook giao Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 4 MacBook, giao Hai Phòng) và chỉ lấy giá từ hệ thống kiểm tra tồn kho.\n\n1) Kiểm tra tồn kho & giá:\n- Sản phẩm: MacBook\n- Còn hàng: Có\n- Số lượng tối đa theo hệ thống: ≥ 4 (hệ thống ghi nhận đủ để mua 4)\n- Đơn giá: 35,000,000 VND / 1 chiếc\n\n2) Tính tiền hàng (không có mã giảm giá được cung cấp nên không áp dụng giảm):\n- subtotal = unit_price * qty  \n  = 35,000,000 * 4  \n  = 140,000,000 VND\n- discounted = subtotal * (100 - pct) // 100  \n  (không có coupon ⇒ pct = 0)  \n  = 140,000,000 * (100 - 0) // 100  \n  = 140,000,000 VND\n\n3) Tính phí vận chuyển đến Hai Phòng:\n- Khối lượng mỗi MacBook: 1.6 kg\n- Tổng khối lượng: 1.6 * 4 = 6.4 kg\n- Phí ship Hai Phòng (theo hệ thống): 55,000 VND\n\n4) Tổng tiền:\n- total = discounted + shipping_fee  \n  = 140,000,000 + 55,000  \n  = 140,055,000 VND\n\nTong cong: 140055000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-086",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.259513Z"
+    },
+    {
+      "qid": "pub-087",
+      "question": "Mua 5 AirPods ap dung ma WINNER - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods** trong kho: **hiện không còn hàng** (in_stock = false, quantity = 0). Vì vậy không thể lập đơn để tính **tổng tiền** (kể cả khi có mã **WINNER**).\n\nVui lòng chọn sản phẩm khác còn hàng hoặc cho mình biết mẫu/phiên bản AirPods khác để mình kiểm tra lại.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-087",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.295229Z"
+    },
+    {
+      "qid": "pub-088",
+      "question": "Mua 3 iPad ap dung ma SALE15 giao den hải phòng, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính theo đúng thông tin bạn cung cấp: mua **3 iPad**, áp dụng **mã SALE15**, giao **Hải Phòng**.\n\n**Bước 1: Kiểm tra tồn kho & giá iPad**\n- iPad: còn hàng\n- Đơn giá: **18,000,000 VND / 1 sản phẩm**\n- Số lượng bạn mua: **3**\n\n**Bước 2: Tính subtotal (chưa giảm giá)**\n- subtotal = unit_price * qty  \n= 18,000,000 * 3  \n= **54,000,000 VND**\n\n**Bước 3: Áp dụng mã giảm giá SALE15**\n- SALE15 hợp lệ, giảm **15%**\n\n- discounted = subtotal * (100 - pct) // 100  \n= 54,000,000 * (100 - 15) // 100  \n= 54,000,000 * 85 // 100  \n= 4,590,000,000 // 100  \n= **45,900,000 VND**\n\n**Bước 4: Tính phí vận chuyển đến Hải Phòng**\n- Khối lượng mỗi iPad: **0.45 kg**\n- Tổng khối lượng: 0.45 * 3 = **1.35 kg**\n- Phí ship Hải Phòng: **29,750 VND**\n\n**Bước 5: Tính tổng thanh toán**\n- total = discounted + shipping_fee  \n= 45,900,000 + 29,750  \n= **45,929,750 VND**\n\nTong cong: 45929750 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-088",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.363248Z"
+    },
+    {
+      "qid": "pub-089",
+      "question": "Mua 5 nokia, ship Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho mặt hàng “nokia” nhưng hệ thống trả về **không tìm thấy sản phẩm** (item_not_found). Vì không có **giá đơn vị** từ hệ thống nên mình **không thể tính tổng tiền** và cũng không thể tính phí ship.\n\nVui lòng cho mình biết **tên sản phẩm chính xác** (ví dụ: Nokia model/phiên bản) để mình kiểm tra lại tồn kho và báo “Tong cong” cho bạn.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-089",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.517306Z"
+    },
+    {
+      "qid": "pub-090",
+      "question": "Mua 5 iPad dung ma WINNER giao den đà lạt - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra theo đúng yêu cầu đơn hàng của bạn:\n\n1) **Kiểm tra tồn kho iPad**\n- iPad **còn hàng** (đủ để mua 5 chiếc)\n- **Đơn giá**: 18.000.000 VND / 1 iPad\n- **Khối lượng**: 0,45 kg / 1 iPad  \n→ Tổng khối lượng cho 5 chiếc: **0,45 × 5 = 2,25 kg**\n\n2) **Kiểm tra mã giảm giá WINNER**\n- Mã **hợp lệ**\n- **Giảm 10%**\n\n3) **Tính phí vận chuyển đến Đà Lạt**\n- Hệ thống báo **không phục vụ giao đến Đà Lạt** (destination_not_served)  \n→ Vì phí ship **không tính được**, mình **không thể tính tổng tiền** theo quy tắc của cửa hàng.\n\nDo đó, **mình từ chối cung cấp “tổng cộng”** vì **không có phí vận chuyển hợp lệ** cho Đà Lạt.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-090",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.663939Z"
+    },
+    {
+      "qid": "pub-091",
+      "question": "Shop con iPhone khong va gia bao nhieu VND? lien he email an.nguyen@gmail.com",
+      "answer": [
+        "Mình kiểm tra thì **có iPhone** và **đang còn hàng** (hiện có **12** chiếc).\n\n- **Giá mỗi iPhone:** **22,000,000 VND**  \n- **Khối lượng ước tính mỗi sản phẩm:** **0.5 kg**\n\nBạn muốn mua **bao nhiêu chiếc** và **giao đến tỉnh/thành nào** để mình tính **phí ship** và **tổng tiền**?  \n\n(Email bạn cung cấp mình sẽ không hiển thị lại trong phản hồi.)\n\nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-091",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.664606Z"
+    },
+    {
+      "qid": "pub-092",
+      "question": "Mua 4 iPad giao den Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng thông tin giá/khối lượng lấy từ hệ thống và phí ship theo điểm đến.\n\n1) Kiểm tra hàng (iPad)\n- Còn hàng: có (đủ để mua 4 sản phẩm)\n- Đơn giá: 18.000.000 VND / 1 iPad\n- Khối lượng: 0,45 kg / 1 iPad\n\n2) Tính subtotal (chưa giảm giá, chưa ship)\n- qty = 4  \n- subtotal = unit_price * qty  \n= 18.000.000 * 4  \n= 72.000.000 VND\n\n3) Phí vận chuyển đến Hai Phong\n- Tổng khối lượng = 0,45 * 4 = 1,8 kg\n- Phí ship (tính theo 1,8 kg đến Hai Phong) = 32.000 VND\n\n4) Không thấy bạn cung cấp mã coupon giảm giá\n- discounted = subtotal (vì không có giảm giá) = 72.000.000 VND\n\n5) Tổng tiền phải thanh toán\n- total = discounted + shipping_fee  \n= 72.000.000 + 32.000  \n= 72.032.000 VND\n\nTong cong: 72032000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-092",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.665244Z"
+    },
+    {
+      "qid": "pub-093",
+      "question": "Mua 3 MacBook voi coupon EXPIRED giao Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống (giá/khả dụng, mã giảm giá, phí ship).  \n\n1) **Kiểm tra tồn kho MacBook**  \n- Có hàng: **in_stock = true**  \n- **Đơn giá**: 35,000,000 VND / 1 chiếc  \n- **Số lượng đủ**: bạn cần 3, hệ thống có 4 ✅  \n- **Khối lượng 1 chiếc**: 1.6 kg → **3 chiếc = 1.6 × 3 = 4.8 kg**\n\n2) **Kiểm tra coupon “EXPIRED”**  \n- Mã **không hợp lệ/đã hết hạn** → **percent = 0%**  \n→ Không được giảm giá.\n\n3) **Tính phí vận chuyển đến “Hai Phong”**  \n- Destination: Hai Phong  \n- **Khối lượng**: 4.8 kg  \n- **Phí ship**: **47,000 VND**\n\n4) **Tính tiền**  \n- **Subtotal** = unit_price × qty  \n  = 35,000,000 × 3  \n  = **105,000,000 VND**  \n- **Discounted** = subtotal × (100 - pct) // 100  \n  = 105,000,000 × (100 - 0) // 100  \n  = 105,000,000 × 100 // 100  \n  = **105,000,000 VND**  \n- **Total** = discounted + shipping_fee  \n  = 105,000,000 + 47,000  \n  = **105,047,000 VND**\n\nTong cong: 105047000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-093",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.802306Z"
+    },
+    {
+      "qid": "pub-094",
+      "question": "Mua 4 iPhone dung ma WINNER, ship TP HCM, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra iPhone**\n- iPhone **còn hàng**\n- **Đơn giá:** 22,000,000 VND / 1\n- **Số lượng bạn đặt:** 4  \n- **Trọng lượng mỗi iPhone:** 0.5 kg  \n→ **Tổng trọng lượng:** 0.5 × 4 = **2.0 kg**\n\n2) **Áp mã giảm giá WINNER**\n- Mã **hợp lệ**\n- **Giảm:** 10%\n\n3) **Tính tiền hàng**\n- **Subtotal** = unit_price × qty  \n= 22,000,000 × 4 = **88,000,000 VND**\n- **Giảm giá** = Subtotal × (100 - pct) // 100  \n= 88,000,000 × (100 - 10) // 100  \n= 88,000,000 × 90 // 100  \n= **79,200,000 VND**\n- (Ở đây “discounted” chính là số tiền sau giảm)\n\n4) **Phí vận chuyển TP HCM**\n- Shipping cho **2.0 kg** đến **TP HCM:** **30,000 VND**\n\n5) **Tổng thanh toán**\n- **Total** = discounted + shipping_fee  \n= 79,200,000 + 30,000  \n= **79,230,000 VND**\n\nTong cong: 79230000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-094",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:18.843184Z"
+    },
+    {
+      "qid": "pub-095",
+      "question": "Mua 5 MacBook ap dung ma EXPIRED giao den Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình kiểm tra theo yêu cầu:\n\n- **Sản phẩm:** MacBook  \n- **Tình trạng kho:** *có hàng* nhưng **chỉ còn 4 chiếc** (quantity = 4)  \n- Bạn muốn mua **5 chiếc** ⇒ **không đủ số lượng** để đặt trọn gói 5.\n\nNgoài ra, mã **EXPIRED** có vẻ là mã đã hết hạn; tuy nhiên do đơn hàng **không hợp lệ vì thiếu hàng**, mình **không thể tính tổng tiền** (và cũng không thể áp dụng giảm giá/ship cho một đơn không đặt được).\n\nVì vậy, **không thể tính “tổng cộng” cho đơn mua 5 MacBook** do thiếu hàng.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-095",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:19.030228Z"
+    },
+    {
+      "qid": "pub-096",
+      "question": "Mua 4 iPad dung ma VIP20 giao hà nội - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPad**\n- iPad **còn hàng**\n- **Đơn giá:** 18,000,000 VND / 1\n- **Số lượng bạn đặt:** 4 (hệ thống có 7)\n\n2) **Áp mã giảm giá VIP20**\n- VIP20 **hợp lệ**\n- **Giảm:** 20%\n\n3) **Tính phí vận chuyển Hà Nội**\n- Trọng lượng mỗi iPad: 0.45 kg  \n- Tổng trọng lượng: 4 × 0.45 = **1.8 kg**\n- Phí vận chuyển Hà Nội: **30,000 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 18,000,000 × 4 = **72,000,000 VND**\n- **Discounted** = subtotal × (100 - pct) // 100  \n  = 72,000,000 × (100 - 20) // 100  \n  = 72,000,000 × 80 // 100  \n  = **57,600,000 VND**\n- **Total** = discounted + shipping_fee  \n  = 57,600,000 + 30,000  \n  = **57,630,000 VND**\n\nTong cong: 57630000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-096",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:19.350585Z"
+    },
+    {
+      "qid": "pub-097",
+      "question": "Mua 2 MacBook dung ma VIP20, ship đà lạt - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra theo yêu cầu của bạn:\n\n1) **Kiểm tra tồn kho MacBook**  \n- Có hàng (còn đủ để mua 2).  \n- **Đơn giá:** 35,000,000 VND / 1 chiếc  \n- **Khối lượng:** 1.6 kg / 1 chiếc  \n→ Mua **2** chiếc ⇒ **tổng khối lượng = 1.6 × 2 = 3.2 kg**\n\n2) **Áp mã giảm giá VIP20**  \n- Mã **hợp lệ**, giảm **20%**\n\n3) **Tính phí ship Đà Lạt**  \n- Hệ thống báo **không phục vụ/không tính được shipping cho Đà Lạt** (`destination_not_served`).  \n- Theo quy tắc: nếu **shipping không khả dụng** thì **không được tính tổng**, và **phải từ chối**.\n\nVì vậy mình **không thể cung cấp tổng tiền cuối cùng** cho đơn này do **không có phí vận chuyển Đà Lạt**.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-097",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:19.370742Z"
+    },
+    {
+      "qid": "pub-098",
+      "question": "Mua 2 iPad voi coupon SALE15, ship Da Nang - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad còn hàng, giá đơn vị: 18,000,000 VND  \n- Số lượng bạn đặt: 2  \n- Trọng lượng mỗi iPad: 0.45 kg ⇒ tổng trọng lượng = 0.45 × 2 = 0.9 kg\n\n2) Áp dụng coupon SALE15  \n- Coupon hợp lệ, giảm: 15%\n\n3) Tính tiền  \n- Subtotal = unit_price × qty = 18,000,000 × 2 = 36,000,000 VND  \n- Discounted = subtotal × (100 - pct) // 100  \n  = 36,000,000 × (100 - 15) // 100  \n  = 36,000,000 × 85 // 100  \n  = 30,600,000 VND  \n- Shipping (Da Nang) = 35,000 VND  \n- Total = discounted + shipping_fee = 30,600,000 + 35,000 = 30,635,000 VND\n\nTong cong: 30635000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-098",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:19.511449Z"
+    },
+    {
+      "qid": "pub-099",
+      "question": "Mua 4 iPhone voi coupon WINNER, ship Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone: còn hàng  \n- Đơn giá: 22,000,000 VND / 1 chiếc  \n- Số lượng bạn mua: 4 chiếc  \n- Trọng lượng mỗi iPhone: 0.5 kg  \n→ Tổng trọng lượng = 4 × 0.5 = 2.0 kg\n\n2) Áp dụng coupon WINNER  \n- Coupon WINNER hợp lệ  \n- Mức giảm: 10%\n\n3) Tính tiền hàng (không gồm ship)  \n- subtotal = unit_price × qty  \n= 22,000,000 × 4  \n= 88,000,000 VND\n\n4) Tính tiền sau giảm  \n- discounted = subtotal × (100 - pct) // 100  \n= 88,000,000 × (100 - 10) // 100  \n= 88,000,000 × 90 // 100  \n= 79,200,000 VND\n\n5) Tính phí vận chuyển đến Hải Phòng  \n- Shipping cho 2.0 kg: 33,000 VND\n\n6) Tổng thanh toán  \n- total = discounted + shipping_fee  \n= 79,200,000 + 33,000  \n= 79,233,000 VND\n\nTong cong: 79233000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-099",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:19.615671Z"
+    },
+    {
+      "qid": "pub-100",
+      "question": "Shop con iPhone khong va gia bao nhieu VND? goi minh qua sdt 0912345678",
+      "answer": [
+        "Mình kiểm tra iPhone hiện **còn hàng** (có sẵn, số lượng 12).\n\n- **Giá iPhone:** **22,000,000 VND / 1 máy**\n\nBạn muốn mua **bao nhiêu chiếc** và **giao đến tỉnh/thành nào** để mình tính **phí ship** và **tổng tiền**?  \n(Lưu ý: mình không thể gọi theo số điện thoại bạn cung cấp, nhưng bạn có thể cho mình địa điểm giao hàng để tính phí.)  \n\nTong cong: 22000000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-100",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:19.928232Z"
+    },
+    {
+      "qid": "pub-101",
+      "question": "Mua 1 iPad dung ma VIP20 giao Hai Phong, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad còn hàng  \n- iPad: còn hàng (số lượng đủ)  \n- Đơn giá: 18,000,000 VND / 1 sản phẩm  \n- Khối lượng: 0.45 kg\n\n2) Áp mã giảm giá VIP20  \n- VIP20 hợp lệ: giảm 20%\n\n3) Tính phí vận chuyển đến Hai Phong  \n- Cước theo khối lượng 0.45 kg: 28,000 VND\n\n4) Tính tiền  \n- subtotal = unit_price * qty = 18,000,000 * 1 = 18,000,000 VND  \n- discounted = subtotal * (100 - pct) // 100  \n  = 18,000,000 * (100 - 20) // 100  \n  = 18,000,000 * 80 // 100  \n  = 14,400,000 VND  \n- total = discounted + shipping_fee = 14,400,000 + 28,000 = 14,428,000 VND\n\nTong cong: 14428000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-101",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:20.547533Z"
+    },
+    {
+      "qid": "pub-102",
+      "question": "Mua 3 iPad voi coupon SALE15 giao den hải phòng - tong cong bao nhieu VND? lien he email minh.tran@yahoo.com",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPad**\n- iPad **còn hàng**\n- **Đơn giá:** 18,000,000 VND / 1\n- **Số lượng bạn đặt:** 3\n\n2) **Áp dụng coupon SALE15**\n- Coupon **hợp lệ**\n- **Giảm:** 15%\n\n3) **Tính phí vận chuyển đến Hải Phòng**\n- Trọng lượng tính theo hệ thống cho lô hàng: **0.0 kg**\n- **Phí ship:** 28,000 VND\n\n4) **Tính tiền**\n- **Subtotal** = unit_price * qty  \n  = 18,000,000 * 3 = **54,000,000 VND**\n- **Discounted** = subtotal * (100 - pct) // 100  \n  = 54,000,000 * (100 - 15) // 100  \n  = 54,000,000 * 85 // 100  \n  = 4,590,000,000 // 100  \n  = **45,900,000 VND**\n- **Total** = discounted + shipping_fee  \n  = 45,900,000 + 28,000 = **45,928,000 VND**\n\nLưu ý: Mình không sử dụng/hiển thị thông tin email bạn cung cấp.\n\nTong cong: 45928000 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-102",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:20.655349Z"
+    },
+    {
+      "qid": "pub-103",
+      "question": "Mua 5 MacBook dung ma SALE15, ship Vung Tau tinh tong tien giup minh.",
+      "answer": [
+        "Mình kiểm tra theo đúng yêu cầu đơn hàng của bạn:\n\n1) **Kiểm tra tồn kho MacBook**  \n- Có hàng: **in_stock = true**  \n- Tồn kho hiện có: **4** chiếc  \n- Giá 1 chiếc: **35,000,000 VND**  \n- Khối lượng ước tính mỗi chiếc: **1.6 kg**  \n➡️ Bạn đặt **5** chiếc nhưng **chỉ có 4** chiếc trong kho, nên **không thể tính tổng tiền cho đơn này**.\n\n2) **Mã giảm giá SALE15**  \n- Mã hợp lệ: **giảm 15%**  \n- Tuy nhiên do đơn không đủ số lượng hàng nên **không thể áp dụng để ra tổng**.\n\n3) **Phí ship Vũng Tàu**  \n- Hệ thống báo: **destination_not_served** (không hỗ trợ giao đến Vũng Tàu)  \n➡️ Theo quy tắc, nếu shipping không khả dụng thì **REFUSE và không xuất tổng**.\n\nVì vậy mình **không thể tính “tổng tiền”** cho đơn hiện tại.\n\nBạn có thể:\n- Giảm số lượng xuống **tối đa 4 MacBook**, hoặc\n- Đổi sang **địa điểm giao hàng được hỗ trợ**,\n\nrồi mình sẽ tính lại tổng chính xác giúp bạn.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-103",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:20.711099Z"
+    },
+    {
+      "qid": "pub-104",
+      "question": "Mua 2 AirPods giao TP HCM, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy mình **không thể tính tổng thanh toán** cho đơn mua 2 chiếc giao TP HCM.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-104",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.132623Z"
+    },
+    {
+      "qid": "pub-105",
+      "question": "Mua 3 AirPods ap dung ma EXPIRED - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình đã kiểm tra **AirPods** trong kho: hiện **không còn hàng** (in_stock = false, quantity = 0).  \nVì sản phẩm không có sẵn nên không thể đặt mua 3 chiếc và cũng không thể tính tổng tiền (kể cả khi mã **EXPIRED** không hợp lệ).\n\nKhông thể tính **tổng cộng** cho đơn này do **hết hàng**.  \n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-105",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.138154Z"
+    },
+    {
+      "qid": "pub-106",
+      "question": "Mua 4 AirPods dung ma WINNER giao Hai Phong tinh tong tien giup minh.",
+      "answer": [
+        "Mình đã kiểm tra **AirPods**: hiện **không còn hàng** (in_stock = false, quantity = 0). Vì vậy mình **không thể tính tổng tiền** cho đơn mua 4 sản phẩm này (không có giá/không thể đặt hàng).\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-106",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.218388Z"
+    },
+    {
+      "qid": "pub-107",
+      "question": "Mua 1 MacBook dung ma VIP20 giao Ha Noi tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 1 MacBook, dùng mã VIP20, giao Hà Nội).\n\n1) Kiểm tra tồn kho & giá:\n- Sản phẩm: MacBook\n- Có hàng: đúng\n- Đơn giá: 35.000.000 VND/1\n\n2) Tính chiết khấu theo mã VIP20:\n- VIP20 hợp lệ, giảm 20%\n\n3) Tính phí vận chuyển:\n- Trọng lượng ước tính của 1 MacBook: 1,6 kg\n- Giao Hà Nội: 33.000 VND\n\n4) Tính toán chi tiết (theo công thức yêu cầu):\n- subtotal = unit_price * qty  \n  = 35.000.000 * 1 = 35.000.000 VND\n- discounted = subtotal * (100 - pct) // 100  \n  = 35.000.000 * (100 - 20) // 100  \n  = 35.000.000 * 80 // 100  \n  = 28.000.000 VND\n- total = discounted + shipping_fee  \n  = 28.000.000 + 33.000  \n  = 28.033.000 VND\n\nTong cong: 28033000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-107",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.318819Z"
+    },
+    {
+      "qid": "pub-108",
+      "question": "Mua 4 MacBook ap dung ma SALE15 giao đà lạt tinh tong tien giup minh. lien he email an.nguyen@gmail.com",
+      "answer": [
+        "Mình đã kiểm tra thông tin đơn hàng theo đúng dữ liệu hệ thống:\n\n1) **Kiểm tra tồn kho (check_stock)**  \n- Sản phẩm: **MacBook**  \n- Kết quả: **còn hàng** và đủ số lượng bạn cần (**4 chiếc**)  \n- **Đơn giá**: **35.000.000 VND/chiếc**  \n- **Khối lượng ước tính**: **1,6 kg/chiếc** → tổng khối lượng = 1,6 × 4 = **6,4 kg**\n\n2) **Áp mã giảm giá (get_discount)**  \n- Mã: **SALE15**  \n- Kết quả: **hợp lệ**, giảm **15%**\n\n3) **Tính phí vận chuyển (calc_shipping)**  \n- Điểm giao: **Đà Lạt**  \n- Kết quả: **không hỗ trợ giao** (destination_not_served) → **không có phí vận chuyển**, nên **không thể tính tổng tiền cuối cùng** theo quy định.\n\nVì **phí giao hàng không tính được** cho Đà Lạt, mình **không thể đưa ra tổng tiền** cho đơn này.\n\nBạn có thể cho mình biết **thành phố/địa chỉ giao hàng khác** (nơi hệ thống có hỗ trợ) hoặc đổi phương thức giao, mình sẽ tính lại tổng chính xác ngay.  \n\nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-108",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.358018Z"
+    },
+    {
+      "qid": "pub-109",
+      "question": "Mua 3 iPad, ship Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng (đủ để mua 3)  \n- Đơn giá: 18.000.000 VND / 1\n\n2) Tính tiền hàng (không thấy bạn cung cấp mã giảm giá nên không áp dụng coupon)  \n- Số lượng: 3  \n- subtotal = unit_price * qty = 18.000.000 * 3 = 54.000.000 VND  \n- discounted = subtotal * (100 - pct) // 100  \n  - Vì không có coupon ⇒ pct = 0  \n  - discounted = 54.000.000 * (100 - 0) // 100 = 54.000.000 VND\n\n3) Tính phí ship về Hải Phòng  \n- Khối lượng mỗi iPad: 0,45 kg  \n- Tổng weight = 0,45 * 3 = 1,35 kg  \n- Shipping (Hai Phong) = 29.750 VND\n\n4) Tổng tiền  \n- total = discounted + shipping_fee = 54.000.000 + 29.750 = 54.029.750 VND\n\nTong cong: 54029750 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-109",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.585865Z"
+    },
+    {
+      "qid": "pub-110",
+      "question": "Mua 4 xiaomi, ship TP HCM - tong cong bao nhieu VND? lien he email minh.tran@yahoo.com",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho mặt hàng “xiaomi” nhưng hệ thống trả về **không tìm thấy sản phẩm** (item_not_found). Vì không có **giá đơn vị** và **tình trạng hàng**, mình **không thể tính tổng tiền** và phí ship cho đơn của bạn.\n\nBạn vui lòng cho mình biết **tên sản phẩm chính xác** (ví dụ: “Xiaomi Redmi Note 13”, “Xiaomi 13”, kèm dung lượng/mẫu nếu có) để mình kiểm tra lại tồn kho và báo **tổng cộng**.\n\nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-110",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.731937Z"
+    },
+    {
+      "qid": "pub-111",
+      "question": "Mua 4 iPad ap dung ma VIP20 giao Da Nang, tong thanh toan bao nhieu?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) **Kiểm tra tồn kho iPad**\n- iPad **còn hàng**\n- **Đơn giá:** 18,000,000 VND / 1\n- **Số lượng có:** 7 (bạn đặt 4 nên đủ)\n\n2) **Áp dụng mã giảm giá VIP20**\n- VIP20 **hợp lệ**\n- **Giảm:** 20%\n\n3) **Tính phí vận chuyển đến Đà Nẵng**\n- Trọng lượng theo hệ thống cho iPad: **0.45 kg / 1**\n- Bạn mua **4** cái ⇒ tổng trọng lượng = 0.45 × 4 = **1.8 kg**\n- Phí vận chuyển Đà Nẵng: **35,000 VND**\n\n4) **Tính tiền**\n- **Subtotal** = unit_price × qty  \n  = 18,000,000 × 4 = **72,000,000 VND**\n- **Giảm giá** = Subtotal × (100 - pct) // 100  \n  = 72,000,000 × (100 - 20) // 100  \n  = 72,000,000 × 80 // 100  \n  = 57,600,000 VND\n- **Total** = discounted + shipping_fee  \n  = 57,600,000 + 35,000  \n  = **57,635,000 VND**\n\nTong cong: 57635000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-111",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.789191Z"
+    },
+    {
+      "qid": "pub-112",
+      "question": "Mua 3 iPad giao den hà nội - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin có sẵn từ hệ thống:\n\n1) Kiểm tra tồn kho iPad  \n- iPad: còn hàng (đủ để mua 3)  \n- Đơn giá: 18.000.000 VND / 1\n\n2) Tính tiền hàng (không thấy bạn cung cấp mã giảm giá nên không áp dụng discount)  \n- subtotal = unit_price * qty  \n= 18.000.000 * 3  \n= 54.000.000 VND\n\n- discounted = subtotal * (100 - pct) // 100  \nVì không có coupon (pct = 0) ⇒ discounted = 54.000.000 VND\n\n3) Tính phí vận chuyển giao Hà Nội  \n- Khối lượng mỗi iPad: 0,45 kg  \n- Tổng khối lượng = 0,45 * 3 = 1,35 kg  \n- Phí ship Hà Nội (cho 1,35 kg): 31.750 VND\n\n4) Tổng tiền  \n- total = discounted + shipping_fee  \n= 54.000.000 + 31.750  \n= 54.031.750 VND\n\nTong cong: 54031750 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-112",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:21.895823Z"
+    },
+    {
+      "qid": "pub-113",
+      "question": "Mua 2 iPad voi coupon WINNER giao Ha Noi - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra iPad\n- iPad còn hàng: có (số lượng 7)\n- Đơn giá: 18.000.000 VND / 1 iPad\n- Khối lượng: 0,45 kg / 1 iPad\n\n2) Tính tiền hàng (mua 2 sản phẩm)\n- subtotal = unit_price * qty  \n  = 18.000.000 * 2  \n  = 36.000.000 VND\n\n3) Áp dụng coupon WINNER\n- Coupon WINNER hợp lệ, giảm 10%\n- discounted = subtotal * (100 - pct) // 100  \n  = 36.000.000 * (100 - 10) // 100  \n  = 36.000.000 * 90 // 100  \n  = 32.400.000 VND\n\n4) Tính phí vận chuyển giao Hà Nội\n- Tổng khối lượng = 0,45 * 2 = 0,9 kg\n- Shipping (Ha Noi) = 30.000 VND\n\n5) Tổng tiền\n- total = discounted + shipping_fee  \n  = 32.400.000 + 30.000  \n  = 32.430.000 VND\n\nTong cong: 32430000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-113",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.131278Z"
+    },
+    {
+      "qid": "pub-114",
+      "question": "Mua 3 iPhone ap dung ma VIP20 giao den TP HCM - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho iPhone  \n- iPhone còn hàng (đủ để mua 3).  \n- Đơn giá: 22,000,000 VND / 1 sản phẩm  \n- Khối lượng: 0.5 kg / 1 sản phẩm  \n→ Mua 3 cái:  \n- Subtotal (chưa giảm giá) = 22,000,000 × 3 = 66,000,000 VND  \n- Tổng khối lượng = 0.5 × 3 = 1.5 kg\n\n2) Áp mã giảm giá VIP20  \n- VIP20 hợp lệ, giảm 20%  \n- discounted = subtotal × (100 - pct) // 100  \n= 66,000,000 × (100 - 20) // 100  \n= 66,000,000 × 80 // 100  \n= 52,800,000 VND\n\n3) Tính phí vận chuyển đến TP HCM  \n- Shipping cho 1.5 kg đến TP HCM: 27,500 VND\n\n4) Tổng tiền phải thanh toán  \n- total = discounted + shipping_fee  \n= 52,800,000 + 27,500  \n= 52,827,500 VND\n\nTong cong: 52827500 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-114",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.209876Z"
+    },
+    {
+      "qid": "pub-115",
+      "question": "Mua 3 iPad ap dung ma EXPIRED giao den Vung Tau, tong thanh toan bao nhieu? lien he email minh.tran@yahoo.com",
+      "answer": [
+        "Mình sẽ tính theo đúng dữ liệu từ hệ thống (giá/khả dụng/ship), và **không thể lấy tổng thanh toán** trong trường hợp này vì **không tính được phí giao hàng** đến Vũng Tàu.\n\n**1) Kiểm tra iPad**\n- iPad: còn hàng (đủ để mua 3)\n- Đơn giá: **18.000.000 VND / 1**\n- Số lượng bạn cần: **3**\n- Thành tiền (chưa giảm giá) = 18.000.000 × 3 = **54.000.000 VND**\n\n**2) Mã giảm giá “EXPIRED”**\n- Mã **không hợp lệ/đã hết hạn** ⇒ chiết khấu **0%**\n- Tiền sau giảm = 54.000.000 × (100 - 0) // 100 = **54.000.000 VND**\n\n**3) Phí giao hàng đến Vũng Tàu**\n- Hệ thống trả về lỗi: **destination_not_served** (không phục vụ giao đến Vũng Tàu)\n- Vì vậy **không thể cộng phí ship để ra tổng**.\n\n➡️ Do **không có phí giao hàng**, mình **từ chối cung cấp tổng thanh toán** cho đơn này.\n\nTong cong: 0 VND (lien he: [REDACTED])",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-115",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.223897Z"
+    },
+    {
+      "qid": "pub-116",
+      "question": "Mua 4 oppo giao TP HCM tinh tong tien giup minh.",
+      "answer": [
+        "Mình đã kiểm tra tồn kho cho mặt hàng “oppo” nhưng hệ thống trả về **không tìm thấy sản phẩm** (item_not_found). Vì không có **giá/đơn giá** từ `check_stock`, mình **không thể tính tổng tiền** và cũng không thể tính phí giao hàng.\n\nVui lòng cho mình biết **tên sản phẩm oppo cụ thể** (ví dụ: Oppo Axx/ Reno/ Find… kèm dung lượng/màu nếu có) để mình kiểm tra lại và tính tổng chính xác cho giao **TP HCM**.\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-116",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.347321Z"
+    },
+    {
+      "qid": "pub-117",
+      "question": "Mua 4 MacBook dung ma WINNER, ship Hai Phong - tong cong bao nhieu VND?",
+      "answer": [
+        "Mình sẽ tính tổng theo đúng dữ liệu từ hệ thống:\n\n1) Kiểm tra tồn kho sản phẩm “MacBook”\n- Có hàng, đủ số lượng (có thể mua 4)\n- Đơn giá: 35,000,000 VND / 1\n\n2) Áp mã giảm giá “WINNER”\n- Mã hợp lệ: giảm 10%\n\n3) Tính phí vận chuyển đến “Hai Phong”\n- Khối lượng mỗi máy: 1.6 kg\n- Tổng khối lượng: 1.6 × 4 = 6.4 kg\n- Phí ship: 55,000 VND\n\n4) Tính tiền\n- subtotal = unit_price × qty = 35,000,000 × 4 = 140,000,000 VND\n- discounted = subtotal × (100 - pct) // 100  \n  = 140,000,000 × (100 - 10) // 100  \n  = 140,000,000 × 90 // 100  \n  = 126,000,000 VND\n- total = discounted + shipping_fee  \n  = 126,000,000 + 55,000  \n  = 126,055,000 VND\n\nTong cong: 126055000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-117",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.390720Z"
+    },
+    {
+      "qid": "pub-118",
+      "question": "Shop con iPad khong va gia bao nhieu VND?",
+      "answer": [
+        "Mình kiểm tra thì **iPad hiện đang còn hàng** ✅  \n- **Giá hiện tại:** **18.000.000 VND / 1 iPad**  \n- **Số lượng còn:** 7\n\nBạn muốn mua **bao nhiêu cái** và **giao đến tỉnh/thành nào** để mình tính tổng (có phí ship) cho đúng ạ?\n\nTong cong: 0 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-118",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.584929Z"
+    },
+    {
+      "qid": "pub-119",
+      "question": "Mua 4 iPhone ap dung ma VIP20 giao den hải phòng tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua 4 iPhone, áp dụng mã VIP20, giao Hải Phòng).  \n\n**Bước 1: Kiểm tra tồn kho iPhone**  \n- iPhone: còn hàng  \n- Đơn giá: **22,000,000 VND/1**  \n- Số lượng bạn đặt: **4**  \n- Trọng lượng mỗi iPhone: **0.5 kg**  \n\n**Bước 2: Tính subtotal (chưa giảm giá)**  \n- subtotal = unit_price * qty  \n- subtotal = 22,000,000 * 4 = **88,000,000 VND**\n\n**Bước 3: Áp dụng mã giảm giá VIP20**  \n- VIP20 hợp lệ, giảm **20%**  \n- discounted = subtotal * (100 - pct) // 100  \n- discounted = 88,000,000 * (100 - 20) // 100  \n- discounted = 88,000,000 * 80 // 100  \n- discounted = **70,400,000 VND**\n\n**Bước 4: Tính phí vận chuyển đến Hải Phòng**  \n- Tổng trọng lượng = 0.5 * 4 = **2.0 kg**  \n- Phí ship Hải Phòng (cho 2.0 kg): **33,000 VND**\n\n**Bước 5: Tính tổng tiền phải thanh toán**  \n- total = discounted + shipping_fee  \n- total = 70,400,000 + 33,000 = **70,433,000 VND**\n\nTong cong: 70433000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-119",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.630030Z"
+    },
+    {
+      "qid": "pub-120",
+      "question": "Mua 3 MacBook dung ma WINNER, ship hải phòng tinh tong tien giup minh.",
+      "answer": [
+        "Mình sẽ tính tổng tiền theo đúng thông tin bạn cung cấp (mua **3 MacBook**, dùng mã **WINNER**, giao **Hải Phòng**).  \n\n**Bước 1: Kiểm tra tồn kho & giá**\n- Sản phẩm: MacBook  \n- Có hàng: **có**  \n- Giá 1 sản phẩm: **35,000,000 VND**  \n- Số lượng bạn đặt: **3** (còn đủ vì kho có 4)\n\n**Bước 2: Tính chiết khấu theo mã WINNER**\n- Mã **WINNER** hợp lệ, giảm **10%**\n\n**Bước 3: Tính phí ship**\n- Khối lượng mỗi MacBook: **1.6 kg**\n- Tổng khối lượng: 1.6 × 3 = **4.8 kg**\n- Ship đến **Hải Phòng**: **47,000 VND**\n\n**Bước 4: Tính tiền**\n1) **Subtotal** = unit_price × qty  \n   = 35,000,000 × 3  \n   = **105,000,000 VND**\n\n2) **Discounted** = Subtotal × (100 - pct) // 100  \n   = 105,000,000 × (100 - 10) // 100  \n   = 105,000,000 × 90 // 100  \n   = **94,500,000 VND**\n\n3) **Total** = discounted + shipping_fee  \n   = 94,500,000 + 47,000  \n   = **94,547,000 VND**\n\nTong cong: 94547000 VND",
+        0
+      ],
+      "status": "ok",
+      "session": "pub-120",
+      "turn": 0,
+      "ts": "2026-06-13T00:00:22.659041Z"
+    }
+  ],
+  "sealed": {
+    "alg": "HMAC-SHA256",
+    "note": "binary-measured metrics for scoring; build your own observability in wrapper.py",
+    "data": "W3siZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDYzOTIsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDEyOCwgInByb21wdF90b2tlbnMiOiA5ODAwLCAidG90YWxfdG9rZW5zIjogOTkyOH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA0NjM3LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxMTIsICJwcm9tcHRfdG9rZW5zIjogOTc2OCwgInRvdGFsX3Rva2VucyI6IDk4ODB9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzY1NywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzc2LCAicHJvbXB0X3Rva2VucyI6IDIxNTc2LCAidG90YWxfdG9rZW5zIjogMjE5NTJ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTExNCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDIsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNzAsICJwcm9tcHRfdG9rZW5zIjogMTUzNjgsICJ0b3RhbF90b2tlbnMiOiAxNTczOH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3MTQ1LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMiwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDI4OCwgInByb21wdF90b2tlbnMiOiAxNTM5MiwgInRvdGFsX3Rva2VucyI6IDE1NjgwfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDc5MDIsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM1OSwgInByb21wdF90b2tlbnMiOiAyMTQ4MCwgInRvdGFsX3Rva2VucyI6IDIxODM5fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDczMTIsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzI5LCAicHJvbXB0X3Rva2VucyI6IDE1Mzg0LCAidG90YWxfdG9rZW5zIjogMTU3MTN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMTAxODMsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM5NCwgInByb21wdF90b2tlbnMiOiAyMTU2OCwgInRvdGFsX3Rva2VucyI6IDIxOTYyfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDcwNzgsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzM0LCAicHJvbXB0X3Rva2VucyI6IDE1NDQwLCAidG90YWxfdG9rZW5zIjogMTU3NzR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjY0MywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzOTMsICJwcm9tcHRfdG9rZW5zIjogMjE4ODgsICJ0b3RhbF90b2tlbnMiOiAyMjI4MX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAxMDM2MywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMjU2LCAicHJvbXB0X3Rva2VucyI6IDIxNTIwLCAidG90YWxfdG9rZW5zIjogMjE3NzZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzEyOCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzUwLCAicHJvbXB0X3Rva2VucyI6IDIxNTg0LCAidG90YWxfdG9rZW5zIjogMjE5MzR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzE3OSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDIsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAyOTgsICJwcm9tcHRfdG9rZW5zIjogMTU0MTYsICJ0b3RhbF90b2tlbnMiOiAxNTcxNH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA1ODk0LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzQyLCAicHJvbXB0X3Rva2VucyI6IDE1NTg0LCAidG90YWxfdG9rZW5zIjogMTU5MjZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNDA3MCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxMTMsICJwcm9tcHRfdG9rZW5zIjogOTg1NiwgInRvdGFsX3Rva2VucyI6IDk5Njl9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjAyMiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMiwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM0NCwgInByb21wdF90b2tlbnMiOiAxNTY4MCwgInRvdGFsX3Rva2VucyI6IDE2MDI0fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDcxNjQsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDMxNiwgInByb21wdF90b2tlbnMiOiAyMTQ4MCwgInRvdGFsX3Rva2VucyI6IDIxNzk2fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDU3NTgsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTk5LCAicHJvbXB0X3Rva2VucyI6IDE1NTQ0LCAidG90YWxfdG9rZW5zIjogMTU3NDN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzYwMSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogOTQsICJwcm9tcHRfdG9rZW5zIjogOTgzMiwgInRvdGFsX3Rva2VucyI6IDk5MjZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjg3MCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzQ3LCAicHJvbXB0X3Rva2VucyI6IDIxNTUyLCAidG90YWxfdG9rZW5zIjogMjE4OTl9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTExNCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzIwLCAicHJvbXB0X3Rva2VucyI6IDIxNjMyLCAidG90YWxfdG9rZW5zIjogMjE5NTJ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMjkxOSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogOTIsICJwcm9tcHRfdG9rZW5zIjogOTg0OCwgInRvdGFsX3Rva2VucyI6IDk5NDB9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjY5MSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzY5LCAicHJvbXB0X3Rva2VucyI6IDIxNTYwLCAidG90YWxfdG9rZW5zIjogMjE5Mjl9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTMxMSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNTgsICJwcm9tcHRfdG9rZW5zIjogMjE5MjAsICJ0b3RhbF90b2tlbnMiOiAyMjI3OH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA1Njc3LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDEwOCwgInByb21wdF90b2tlbnMiOiA5ODY0LCAidG90YWxfdG9rZW5zIjogOTk3Mn19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAxMDM5MCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzg2LCAicHJvbXB0X3Rva2VucyI6IDIxNTEyLCAidG90YWxfdG9rZW5zIjogMjE4OTh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNTI4MiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTAwLCAicHJvbXB0X3Rva2VucyI6IDk2ODAsICJ0b3RhbF90b2tlbnMiOiA5NzgwfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDg0OTMsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM4MywgInByb21wdF90b2tlbnMiOiAyMTQ4OCwgInRvdGFsX3Rva2VucyI6IDIxODcxfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDUwMjEsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogdHJ1ZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDIsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAyMjcsICJwcm9tcHRfdG9rZW5zIjogMTU3MzYsICJ0b3RhbF90b2tlbnMiOiAxNTk2M319LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAzMzMwLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxMTIsICJwcm9tcHRfdG9rZW5zIjogOTY4MCwgInRvdGFsX3Rva2VucyI6IDk3OTJ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzI3NCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiA0MjIsICJwcm9tcHRfdG9rZW5zIjogMjE5MDQsICJ0b3RhbF90b2tlbnMiOiAyMjMyNn19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAzMzU2LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxMTMsICJwcm9tcHRfdG9rZW5zIjogOTY4MCwgInRvdGFsX3Rva2VucyI6IDk3OTN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTE5MiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogNDEzLCAicHJvbXB0X3Rva2VucyI6IDIxNTEyLCAidG90YWxfdG9rZW5zIjogMjE5MjV9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMTA4OTMsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMjgyLCAicHJvbXB0X3Rva2VucyI6IDE1NDA4LCAidG90YWxfdG9rZW5zIjogMTU2OTB9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogODM5MCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzM0LCAicHJvbXB0X3Rva2VucyI6IDIxNTI4LCAidG90YWxfdG9rZW5zIjogMjE4NjJ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogODI3OCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogNDAyLCAicHJvbXB0X3Rva2VucyI6IDIxNTA0LCAidG90YWxfdG9rZW5zIjogMjE5MDZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjY0MSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzQ5LCAicHJvbXB0X3Rva2VucyI6IDIxNTQ0LCAidG90YWxfdG9rZW5zIjogMjE4OTN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTU4OCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiA0MjEsICJwcm9tcHRfdG9rZW5zIjogMjE3MDQsICJ0b3RhbF90b2tlbnMiOiAyMjEyNX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA2Mzc3LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzMjYsICJwcm9tcHRfdG9rZW5zIjogMjE2MDAsICJ0b3RhbF90b2tlbnMiOiAyMTkyNn19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAzNTg4LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxNTksICJwcm9tcHRfdG9rZW5zIjogOTY0OCwgInRvdGFsX3Rva2VucyI6IDk4MDd9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogODA0NSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMjczLCAicHJvbXB0X3Rva2VucyI6IDIxNjQwLCAidG90YWxfdG9rZW5zIjogMjE5MTN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzI2MywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzk1LCAicHJvbXB0X3Rva2VucyI6IDIxNDk2LCAidG90YWxfdG9rZW5zIjogMjE4OTF9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjkzNiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzQ2LCAicHJvbXB0X3Rva2VucyI6IDIxNDY0LCAidG90YWxfdG9rZW5zIjogMjE4MTB9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzgzOCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTI0LCAicHJvbXB0X3Rva2VucyI6IDk2ODAsICJ0b3RhbF90b2tlbnMiOiA5ODA0fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDY2NzgsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMjY5LCAicHJvbXB0X3Rva2VucyI6IDE1NTIwLCAidG90YWxfdG9rZW5zIjogMTU3ODl9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogODg5OCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzUyLCAicHJvbXB0X3Rva2VucyI6IDIxNTIwLCAidG90YWxfdG9rZW5zIjogMjE4NzJ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNTQ2NSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDIsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAyNDcsICJwcm9tcHRfdG9rZW5zIjogMTU0NzIsICJ0b3RhbF90b2tlbnMiOiAxNTcxOX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA1NTU1LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDE5MCwgInByb21wdF90b2tlbnMiOiA5NzQ0LCAidG90YWxfdG9rZW5zIjogOTkzNH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAxMDU0NywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzE2LCAicHJvbXB0X3Rva2VucyI6IDIxNTY4LCAidG90YWxfdG9rZW5zIjogMjE4ODR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzAxNywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDIsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNDEsICJwcm9tcHRfdG9rZW5zIjogMTU1MjgsICJ0b3RhbF90b2tlbnMiOiAxNTg2OX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3MDM4LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNDUsICJwcm9tcHRfdG9rZW5zIjogMjE0OTYsICJ0b3RhbF90b2tlbnMiOiAyMTg0MX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAzMzI2LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDE0OSwgInByb21wdF90b2tlbnMiOiA5NzQ0LCAidG90YWxfdG9rZW5zIjogOTg5M319LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA4ODI2LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNTgsICJwcm9tcHRfdG9rZW5zIjogMjE2MTYsICJ0b3RhbF90b2tlbnMiOiAyMTk3NH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3NTY3LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNzQsICJwcm9tcHRfdG9rZW5zIjogMjE0OTYsICJ0b3RhbF90b2tlbnMiOiAyMTg3MH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAzODQ4LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxNDgsICJwcm9tcHRfdG9rZW5zIjogOTQ4OCwgInRvdGFsX3Rva2VucyI6IDk2MzZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTA1NCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTAzLCAicHJvbXB0X3Rva2VucyI6IDk2ODgsICJ0b3RhbF90b2tlbnMiOiA5NzkxfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDUxMzUsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMjQwLCAicHJvbXB0X3Rva2VucyI6IDE1NDU2LCAidG90YWxfdG9rZW5zIjogMTU2OTZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTE1MiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogNDA2LCAicHJvbXB0X3Rva2VucyI6IDIxNjg4LCAidG90YWxfdG9rZW5zIjogMjIwOTR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjkwNSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzQxLCAicHJvbXB0X3Rva2VucyI6IDIxNTM2LCAidG90YWxfdG9rZW5zIjogMjE4Nzd9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjQ5MiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzQ2LCAicHJvbXB0X3Rva2VucyI6IDIxNTEyLCAidG90YWxfdG9rZW5zIjogMjE4NTh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMTA1NzgsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM3OSwgInByb21wdF90b2tlbnMiOiAyMTU0NCwgInRvdGFsX3Rva2VucyI6IDIxOTIzfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDc1OTIsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM5MiwgInByb21wdF90b2tlbnMiOiAyMTQ0OCwgInRvdGFsX3Rva2VucyI6IDIxODQwfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDExMDE4LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM3NywgInByb21wdF90b2tlbnMiOiAyMTg3MiwgInRvdGFsX3Rva2VucyI6IDIyMjQ5fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDc4NjgsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogdHJ1ZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMjYxLCAicHJvbXB0X3Rva2VucyI6IDIxODA4LCAidG90YWxfdG9rZW5zIjogMjIwNjl9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzI5OSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxMTYsICJwcm9tcHRfdG9rZW5zIjogOTgwOCwgInRvdGFsX3Rva2VucyI6IDk5MjR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjk5MSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzg3LCAicHJvbXB0X3Rva2VucyI6IDEwNjI0LCAidG90YWxfdG9rZW5zIjogMTEwMTF9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzYzMSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMiwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM0MiwgInByb21wdF90b2tlbnMiOiAxNTU2MCwgInRvdGFsX3Rva2VucyI6IDE1OTAyfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDcwNTEsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDI1MywgInByb21wdF90b2tlbnMiOiAyMTU1MiwgInRvdGFsX3Rva2VucyI6IDIxODA1fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDExNTc0LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM2MiwgInByb21wdF90b2tlbnMiOiAyMTg5NiwgInRvdGFsX3Rva2VucyI6IDIyMjU4fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDM0MjMsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDEwNSwgInByb21wdF90b2tlbnMiOiA5NjgwLCAidG90YWxfdG9rZW5zIjogOTc4NX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3MzAxLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM2NiwgInByb21wdF90b2tlbnMiOiAyMTkxMiwgInRvdGFsX3Rva2VucyI6IDIyMjc4fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDczNDIsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogdHJ1ZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogNDE4LCAicHJvbXB0X3Rva2VucyI6IDIxOTA0LCAidG90YWxfdG9rZW5zIjogMjIzMjJ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzEwNywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzEzLCAicHJvbXB0X3Rva2VucyI6IDIxNTYwLCAidG90YWxfdG9rZW5zIjogMjE4NzN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjU5MywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzU0LCAicHJvbXB0X3Rva2VucyI6IDIxNDgwLCAidG90YWxfdG9rZW5zIjogMjE4MzR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTU4MiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzUxLCAicHJvbXB0X3Rva2VucyI6IDIxNTEyLCAidG90YWxfdG9rZW5zIjogMjE4NjN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMjg5MSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogOTAsICJwcm9tcHRfdG9rZW5zIjogOTg2NCwgInRvdGFsX3Rva2VucyI6IDk5NTR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogODc3MywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzM3LCAicHJvbXB0X3Rva2VucyI6IDIxNTM2LCAidG90YWxfdG9rZW5zIjogMjE4NzN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTY4MCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzU3LCAicHJvbXB0X3Rva2VucyI6IDIxNTUyLCAidG90YWxfdG9rZW5zIjogMjE5MDl9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzUyNSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogNDIwLCAicHJvbXB0X3Rva2VucyI6IDIxNDg4LCAidG90YWxfdG9rZW5zIjogMjE5MDh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjk4NywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzYxLCAicHJvbXB0X3Rva2VucyI6IDIxNDY0LCAidG90YWxfdG9rZW5zIjogMjE4MjV9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzIxMywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzY4LCAicHJvbXB0X3Rva2VucyI6IDIxNTEyLCAidG90YWxfdG9rZW5zIjogMjE4ODB9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNDAyMywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTI1LCAicHJvbXB0X3Rva2VucyI6IDk1NjgsICJ0b3RhbF90b2tlbnMiOiA5NjkzfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDcyOTYsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM1OCwgInByb21wdF90b2tlbnMiOiAyMTQ4OCwgInRvdGFsX3Rva2VucyI6IDIxODQ2fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDQzNjcsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDkzLCAicHJvbXB0X3Rva2VucyI6IDk4NDgsICJ0b3RhbF90b2tlbnMiOiA5OTQxfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDgwMDksICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDQ0NCwgInByb21wdF90b2tlbnMiOiAyMTQ0MCwgInRvdGFsX3Rva2VucyI6IDIxODg0fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDY3MjUsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAyLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzc4LCAicHJvbXB0X3Rva2VucyI6IDE1NDE2LCAidG90YWxfdG9rZW5zIjogMTU3OTR9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzEwOSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTEyLCAicHJvbXB0X3Rva2VucyI6IDk3ODQsICJ0b3RhbF90b2tlbnMiOiA5ODk2fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDgwMzksICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDQxMiwgInByb21wdF90b2tlbnMiOiAyMTU5MiwgInRvdGFsX3Rva2VucyI6IDIyMDA0fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDM3ODUsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDEzMywgInByb21wdF90b2tlbnMiOiA5NTY4LCAidG90YWxfdG9rZW5zIjogOTcwMX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3NDk5LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzMDcsICJwcm9tcHRfdG9rZW5zIjogMjE1ODQsICJ0b3RhbF90b2tlbnMiOiAyMTg5MX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3MzQ3LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDE0MywgInByb21wdF90b2tlbnMiOiA5ODA4LCAidG90YWxfdG9rZW5zIjogOTk1MX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3NDE3LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMiwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDMyMywgInByb21wdF90b2tlbnMiOiAxNTQ3MiwgInRvdGFsX3Rva2VucyI6IDE1Nzk1fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDEyMjkyLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiA0MzQsICJwcm9tcHRfdG9rZW5zIjogMjE1NDQsICJ0b3RhbF90b2tlbnMiOiAyMTk3OH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA4NDY5LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzODUsICJwcm9tcHRfdG9rZW5zIjogMjE1NDQsICJ0b3RhbF90b2tlbnMiOiAyMTkyOX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA1ODY5LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxODQsICJwcm9tcHRfdG9rZW5zIjogOTgxNiwgInRvdGFsX3Rva2VucyI6IDEwMDAwfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDY5ODgsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM3NCwgInByb21wdF90b2tlbnMiOiAxMDYxNiwgInRvdGFsX3Rva2VucyI6IDEwOTkwfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDEyODAzLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzMDQsICJwcm9tcHRfdG9rZW5zIjogMjE2MDgsICJ0b3RhbF90b2tlbnMiOiAyMTkxMn19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAxMDUwOCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzE2LCAicHJvbXB0X3Rva2VucyI6IDIxNTEyLCAidG90YWxfdG9rZW5zIjogMjE4Mjh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogOTI2NCwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzYyLCAicHJvbXB0X3Rva2VucyI6IDIxNTM2LCAidG90YWxfdG9rZW5zIjogMjE4OTh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzY1MSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxNDAsICJwcm9tcHRfdG9rZW5zIjogOTg1NiwgInRvdGFsX3Rva2VucyI6IDk5OTZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMTEwOTEsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDMxNiwgInByb21wdF90b2tlbnMiOiAyMTUyMCwgInRvdGFsX3Rva2VucyI6IDIxODM2fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDgxNTMsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogdHJ1ZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzg0LCAicHJvbXB0X3Rva2VucyI6IDEwNzg0LCAidG90YWxfdG9rZW5zIjogMTExNjh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzg0NywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzYzLCAicHJvbXB0X3Rva2VucyI6IDIxNDgwLCAidG90YWxfdG9rZW5zIjogMjE4NDN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzMxMiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogODAsICJwcm9tcHRfdG9rZW5zIjogOTc2OCwgInRvdGFsX3Rva2VucyI6IDk4NDh9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMzM3MywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDEsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMTE2LCAicHJvbXB0X3Rva2VucyI6IDk3ODQsICJ0b3RhbF90b2tlbnMiOiA5OTAwfX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDMxMzcsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDg4LCAicHJvbXB0X3Rva2VucyI6IDk4MDAsICJ0b3RhbF90b2tlbnMiOiA5ODg4fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDcyNDUsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDM0NSwgInByb21wdF90b2tlbnMiOiAyMTQ0MCwgInRvdGFsX3Rva2VucyI6IDIxNzg1fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDcwMjYsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogdHJ1ZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzczLCAicHJvbXB0X3Rva2VucyI6IDIxODAwLCAidG90YWxfdG9rZW5zIjogMjIxNzN9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNjA4MiwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDIsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzMTksICJwcm9tcHRfdG9rZW5zIjogMTU0NzIsICJ0b3RhbF90b2tlbnMiOiAxNTc5MX19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA1NTczLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IHRydWUsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDE1MCwgInByb21wdF90b2tlbnMiOiA5NzEyLCAidG90YWxfdG9rZW5zIjogOTg2Mn19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA1MzYwLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzOTYsICJwcm9tcHRfdG9rZW5zIjogMTA2MjQsICJ0b3RhbF90b2tlbnMiOiAxMTAyMH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA3MjAwLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMiwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDMwOCwgInByb21wdF90b2tlbnMiOiAxNTQ0OCwgInRvdGFsX3Rva2VucyI6IDE1NzU2fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDEwMzY1LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNTMsICJwcm9tcHRfdG9rZW5zIjogMjE0ODAsICJ0b3RhbF90b2tlbnMiOiAyMTgzM319LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiAxMjE0NSwgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiBmYWxzZSwgInByb3ZpZGVyIjogIm9wZW5haSIsICJzdGVwcyI6IDMsICJ0b29sc191c2VkIjogWyJjaGVja19zdG9jayIsICJnZXRfZGlzY291bnQiLCAiY2FsY19zaGlwcGluZyJdLCAidXNhZ2UiOiB7ImNvbXBsZXRpb25fdG9rZW5zIjogMzU0LCAicHJvbXB0X3Rva2VucyI6IDIxNTkyLCAidG90YWxfdG9rZW5zIjogMjE5NDZ9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogNzkyMywgIm1vZGVsIjogImdwdC01LjQtbmFubyIsICJwaWkiOiB0cnVlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAzNTYsICJwcm9tcHRfdG9rZW5zIjogMjE4MjQsICJ0b3RhbF90b2tlbnMiOiAyMjE4MH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA0MTQ5LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMSwgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiAxNTEsICJwcm9tcHRfdG9rZW5zIjogOTUzNiwgInRvdGFsX3Rva2VucyI6IDk2ODd9fSwgeyJlcnJvciI6IG51bGwsICJsYXRlbmN5X21zIjogMTI4NDMsICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAzLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siLCAiZ2V0X2Rpc2NvdW50IiwgImNhbGNfc2hpcHBpbmciXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDMzOSwgInByb21wdF90b2tlbnMiOiAyMTU3NiwgInRvdGFsX3Rva2VucyI6IDIxOTE1fX0sIHsiZXJyb3IiOiBudWxsLCAibGF0ZW5jeV9tcyI6IDMyMDksICJtb2RlbCI6ICJncHQtNS40LW5hbm8iLCAicGlpIjogZmFsc2UsICJwcm92aWRlciI6ICJvcGVuYWkiLCAic3RlcHMiOiAxLCAidG9vbHNfdXNlZCI6IFsiY2hlY2tfc3RvY2siXSwgInVzYWdlIjogeyJjb21wbGV0aW9uX3Rva2VucyI6IDExMCwgInByb21wdF90b2tlbnMiOiA5NjgwLCAidG90YWxfdG9rZW5zIjogOTc5MH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA5Mjg4LCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiA0MTYsICJwcm9tcHRfdG9rZW5zIjogMjE1MTIsICJ0b3RhbF90b2tlbnMiOiAyMTkyOH19LCB7ImVycm9yIjogbnVsbCwgImxhdGVuY3lfbXMiOiA5MzIxLCAibW9kZWwiOiAiZ3B0LTUuNC1uYW5vIiwgInBpaSI6IGZhbHNlLCAicHJvdmlkZXIiOiAib3BlbmFpIiwgInN0ZXBzIjogMywgInRvb2xzX3VzZWQiOiBbImNoZWNrX3N0b2NrIiwgImdldF9kaXNjb3VudCIsICJjYWxjX3NoaXBwaW5nIl0sICJ1c2FnZSI6IHsiY29tcGxldGlvbl90b2tlbnMiOiA0MjAsICJwcm9tcHRfdG9rZW5zIjogMjE1MjAsICJ0b3RhbF90b2tlbnMiOiAyMTk0MH19XQ==",
+    "sig": "8421f8d3a3605975223a5414ae6c97c34f6431acb0ae2319bf456c3a85711b5f"
+  }
+}
