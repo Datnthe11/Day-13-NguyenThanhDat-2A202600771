@@ -1,12 +1,72 @@
 {
-  "team": "TODO-team-name",
+  "team": "Super-Agent-Fixer",
   "schema_version": 1,
   "findings": [
     {
+      "fault_class": "error_spike",
+      "evidence": {"metric": "tool_error_rate", "observed": "Intermittent tool failures seen in trace", "trace_ids": []},
+      "root_cause": "The simulator configures a 0.18 tool error rate causing tools to randomly fail.",
+      "suggested_fix": "Enable retry with backoff in config.json (`retry.enabled: true`)."
+    },
+    {
       "fault_class": "latency_spike",
-      "evidence": {"metric": "latency_p95_ms", "observed": "TODO from your telemetry", "trace_ids": []},
-      "root_cause": "TODO: what config knob or behavior causes it?",
-      "suggested_fix": "TODO: config change and/or wrapper mitigation"
+      "evidence": {"metric": "latency_ms", "observed": "Long tail of slow requests", "trace_ids": []},
+      "root_cause": "Repeated network queries for the same or similar data without caching.",
+      "suggested_fix": "Enable cache in config.json (`cache.enabled: true`)."
+    },
+    {
+      "fault_class": "cost_blowup",
+      "evidence": {"metric": "total_tokens", "observed": "Very high token usage per task", "trace_ids": []},
+      "root_cause": "High verbose logging or unrestricted tool usage.",
+      "suggested_fix": "Cap tool usage via `tool_budget` in config.json."
+    },
+    {
+      "fault_class": "quality_drift",
+      "evidence": {"metric": "turn_index", "observed": "Answers worsen later in session", "trace_ids": []},
+      "root_cause": "Session drift rate is high and model hallucination compounds over turns.",
+      "suggested_fix": "Increase `self_consistency` to 3 and reduce `temperature` to 0.2 in config.json."
+    },
+    {
+      "fault_class": "infinite_loop",
+      "evidence": {"metric": "max_steps", "observed": "Status returns max_steps, identical tool calls repeated", "trace_ids": []},
+      "root_cause": "Agent gets stuck in a loop calling the same tool repeatedly.",
+      "suggested_fix": "Enable `loop_guard: true` in config.json."
+    },
+    {
+      "fault_class": "tool_failure",
+      "evidence": {"metric": "action", "observed": "Tool fails on cities/names with diacritics", "trace_ids": []},
+      "root_cause": "Unicode mismatch and bad mock catalog data.",
+      "suggested_fix": "Enable `normalize_unicode: true` and clear `catalog_override` in config.json."
+    },
+    {
+      "fault_class": "pii_leak",
+      "evidence": {"metric": "answer", "observed": "Raw email and phone numbers appear in the agent output", "trace_ids": []},
+      "root_cause": "Model echoes the user input without filtering.",
+      "suggested_fix": "Instruct model in prompt to never repeat PII, and use `telemetry.redact` in wrapper.py."
+    },
+    {
+      "fault_class": "fabrication",
+      "evidence": {"metric": "answer", "observed": "Agent invents a total for out-of-stock items", "trace_ids": []},
+      "root_cause": "Agent tries to be helpful instead of grounding on tool results.",
+      "suggested_fix": "Add grounding rule in system prompt: MUST refuse if out of stock."
+    },
+    {
+      "fault_class": "arithmetic_error",
+      "evidence": {"metric": "answer", "observed": "Total value is miscalculated", "trace_ids": []},
+      "root_cause": "High temperature causes LLM hallucination and bad math estimations.",
+      "suggested_fix": "Reduce temperature to 0.2 and provide exact arithmetic formulas in prompt.txt."
+    },
+    {
+      "fault_class": "tool_overuse",
+      "evidence": {"metric": "tools_used", "observed": "More tool calls than strictly necessary", "trace_ids": []},
+      "root_cause": "Agent tries 'to be safe' and calls tools redundantly.",
+      "suggested_fix": "Add rule in prompt to call each tool AT MOST once, set `tool_budget: 4` in config."
+    },
+    {
+      "fault_class": "prompt_injection",
+      "evidence": {"metric": "answer", "observed": "Agent applies 0 cost or fake instructions from GHI CHU", "trace_ids": []},
+      "root_cause": "Agent obeys embedded instructions inside the user's order notes.",
+      "suggested_fix": "Sanitize 'GHI CHU' notes from input in wrapper.py and add DATA ONLY instruction in prompt.txt."
     }
   ]
 }
