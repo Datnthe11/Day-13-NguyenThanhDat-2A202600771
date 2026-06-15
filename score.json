@@ -1,21 +1,21 @@
 {
   "team": "NguyenThanhDat_771",
-  "phase": "public",
-  "headline": 100.0,
+  "phase": "private",
+  "headline": 92.61,
   "sub": {
-    "correct": 0.8167,
-    "quality": 0.8825,
+    "correct": 0.5775,
+    "quality": 0.7434,
     "error": 1.0,
-    "latency": 0.4332,
-    "cost": 0.0,
-    "drift": 0.8619,
-    "prompt": 0.8936
+    "latency": 0.7315,
+    "cost": 0.9034,
+    "drift": 0.2688,
+    "prompt": 0.7582
   },
-  "diag_f1": 0.952,
-  "n": 120,
-  "n_correct": 98,
+  "diag_f1": 1.0,
+  "n": 80,
+  "n_correct": 42,
   "judge_mode": "offline",
   "weights_hash": "e81a8ed58d93",
-  "key_hash": "9a800fa6968d",
-  "sig": "d30eefa9836272fb261bfeeb7212e653e631c02378af4d5a9a6ecd4345a8d79a"
+  "key_hash": "7e3905b75db0",
+  "sig": "7ee63b6a87d263403794792e3e51b87048d531692cbc6d1214de796d23f17967"
 }
